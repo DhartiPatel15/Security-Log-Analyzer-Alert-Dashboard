@@ -1,0 +1,644 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+
+    <meta charset="UTF-8">
+
+    <meta
+        name="viewport"
+        content="width=device-width, initial-scale=1.0"
+    >
+
+    <title>Security Logs | Security Log Analyzer</title>
+
+    <!-- Common Dashboard CSS -->
+    <link
+        rel="stylesheet"
+        href="css/index.css"
+    >
+
+    <!-- Logs Page CSS -->
+    <link
+        rel="stylesheet"
+        href="css/logs.css"
+    >
+
+</head>
+
+
+<body>
+
+
+<div class="soc-layout">
+
+
+    <!-- =====================================================
+         SIDEBAR
+         SAME SIDEBAR AS DASHBOARD
+         ===================================================== -->
+
+    <aside class="sidebar">
+
+
+        <!-- BRAND -->
+
+        <div class="sidebar-brand">
+
+            <div class="brand-shield">
+                🛡
+            </div>
+
+            <div class="brand-text">
+
+                <strong>
+                    SECURE<span>X</span>
+                </strong>
+
+                <small>
+                    SECURITY OPERATIONS CENTER
+                </small>
+
+            </div>
+
+        </div>
+
+
+        <!-- SYSTEM STATUS -->
+
+        <div class="sidebar-status">
+
+            <span class="online-dot"></span>
+
+            <div>
+
+                <strong>
+                    SOC ONLINE
+                </strong>
+
+                <small>
+                    Monitoring active
+                </small>
+
+            </div>
+
+        </div>
+
+
+        <!-- NAVIGATION -->
+
+        <nav class="main-nav">
+
+
+            <!-- MONITORING -->
+
+            <div class="nav-label">
+                MONITORING
+            </div>
+
+
+            <a
+                href="index.html"
+                class="nav-item"
+            >
+
+                <span class="nav-icon">
+                    ⌂
+                </span>
+
+                <span>
+                    Dashboard
+                </span>
+
+                <b>
+                    01
+                </b>
+
+            </a>
+
+
+            <a
+                href="logs.html"
+                class="nav-item active"
+            >
+
+                <span class="nav-icon">
+                    ▤
+                </span>
+
+                <span>
+                    Security Logs
+                </span>
+
+                <b>
+                    02
+                </b>
+
+            </a>
+
+
+            <a
+                href="alerts.html"
+                class="nav-item"
+            >
+
+                <span class="nav-icon">
+                    ⚠
+                </span>
+
+                <span>
+                    Alerts
+                </span>
+
+                <b>
+                    03
+                </b>
+
+            </a>
+
+
+            <!-- INTELLIGENCE -->
+
+            <div class="nav-label">
+                INTELLIGENCE
+            </div>
+
+
+            <a
+                href="threat-intelligence.html"
+                class="nav-item"
+            >
+
+                <span class="nav-icon">
+                    ◎
+                </span>
+
+                <span>
+                    Threat Intelligence
+                </span>
+
+                <b>
+                    04
+                </b>
+
+            </a>
+
+
+            <a
+                href="ai-analysis.html"
+                class="nav-item"
+            >
+
+                <span class="nav-icon">
+                    ✦
+                </span>
+
+                <span>
+                    AI Analysis
+                </span>
+
+                <b>
+                    05
+                </b>
+
+            </a>
+
+
+        </nav>
+
+
+        <!-- SIDEBAR BOTTOM -->
+
+        <div class="sidebar-bottom">
+
+
+            <div class="environment-card">
+
+                <span class="environment-icon">
+                    ◉
+                </span>
+
+                <div>
+
+                    <strong>
+                        LOCAL ENVIRONMENT
+                    </strong>
+
+                    <small>
+                        Protected
+                    </small>
+
+                </div>
+
+            </div>
+
+
+            <div class="user-profile">
+
+                <div class="avatar">
+                    A
+                </div>
+
+                <div class="user-info">
+
+                    <strong>
+                        Administrator
+                    </strong>
+
+                    <small>
+                        Security Analyst
+                    </small>
+
+                </div>
+
+                <span class="user-more">
+                    ⋮
+                </span>
+
+            </div>
+
+
+        </div>
+
+
+    </aside>
+
+
+    <!-- =====================================================
+         MAIN CONTENT
+         ===================================================== -->
+
+    <main class="main-content">
+
+
+        <!-- PAGE HEADER -->
+
+        <div class="logs-header">
+
+            <div class="logs-title">
+
+                <div class="breadcrumb">
+                    SECURITY CENTER /
+                    <span>SECURITY LOGS</span>
+                </div>
+
+                <h1>
+                    Security Logs
+                </h1>
+
+                <p>
+                    Monitor and analyze security events collected by the system.
+                </p>
+
+            </div>
+
+        </div>
+
+
+        <!-- =================================================
+             SUMMARY CARDS
+             ================================================= -->
+
+        <div class="logs-summary">
+
+
+            <div class="log-summary-card">
+
+                <h3>
+                    Total Logs
+                </h3>
+
+                <div
+                    class="log-summary-number"
+                    id="totalLogs"
+                >
+                    0
+                </div>
+
+                <p>
+                    All recorded events
+                </p>
+
+            </div>
+
+
+            <div class="log-summary-card">
+
+                <h3>
+                    Successful Logins
+                </h3>
+
+                <div
+                    class="log-summary-number"
+                    id="successLogs"
+                >
+                    0
+                </div>
+
+                <p>
+                    Successful authentication
+                </p>
+
+            </div>
+
+
+            <div class="log-summary-card">
+
+                <h3>
+                    Failed Logins
+                </h3>
+
+                <div
+                    class="log-summary-number"
+                    id="failedLogs"
+                >
+                    0
+                </div>
+
+                <p>
+                    Failed authentication attempts
+                </p>
+
+            </div>
+
+
+            <div class="log-summary-card">
+
+                <h3>
+                    Access Denied
+                </h3>
+
+                <div
+                    class="log-summary-number"
+                    id="deniedLogs"
+                >
+                    0
+                </div>
+
+                <p>
+                    Unauthorized access events
+                </p>
+
+            </div>
+
+
+        </div>
+
+
+        <!-- =================================================
+             FILTER PANEL
+             ================================================= -->
+
+        <section class="logs-filter-panel">
+
+
+            <div class="logs-filter-title">
+                🔎 Filter Security Logs
+            </div>
+
+
+            <div class="logs-filters">
+
+
+                <input
+                    type="text"
+                    id="logSearch"
+                    placeholder="Search username, IP, event or message..."
+                >
+
+
+                <select id="eventFilter">
+
+                    <option value="">
+                        All Events
+                    </option>
+
+                    <option value="LOGIN_SUCCESS">
+                        LOGIN_SUCCESS
+                    </option>
+
+                    <option value="LOGIN_FAILED">
+                        LOGIN_FAILED
+                    </option>
+
+                    <option value="ACCESS_DENIED">
+                        ACCESS_DENIED
+                    </option>
+
+                </select>
+
+
+                <select id="severityFilter">
+
+                    <option value="">
+                        All Severity
+                    </option>
+
+                    <option value="Low">
+                        Low
+                    </option>
+
+                    <option value="Medium">
+                        Medium
+                    </option>
+
+                    <option value="High">
+                        High
+                    </option>
+
+                    <option value="Critical">
+                        Critical
+                    </option>
+
+                </select>
+
+
+                <select id="statusFilter">
+
+                    <option value="">
+                        All Status
+                    </option>
+
+                    <option value="Success">
+                        Success
+                    </option>
+
+                    <option value="Failed">
+                        Failed
+                    </option>
+
+                    <option value="Denied">
+                        Denied
+                    </option>
+
+                </select>
+
+
+                <button
+                    class="clear-filters"
+                    onclick="clearFilters()"
+                >
+                    Clear Filters
+                </button>
+
+
+            </div>
+
+        </section>
+
+
+        <!-- =================================================
+             LOG TABLE
+             ================================================= -->
+
+        <section class="logs-table-panel">
+
+
+            <div class="logs-table-header">
+
+                <h2>
+                    Recent Security Events
+                </h2>
+
+                <span
+                    class="logs-count"
+                    id="logsCount"
+                >
+                    0 logs
+                </span>
+
+            </div>
+
+
+            <div class="logs-table-wrapper">
+
+                <table class="logs-table">
+
+
+                    <thead>
+
+                        <tr>
+
+                            <th>ID</th>
+
+                            <th>
+                                Date & Time
+                            </th>
+
+                            <th>
+                                Username
+                            </th>
+
+                            <th>
+                                IP Address
+                            </th>
+
+                            <th>
+                                Event
+                            </th>
+
+                            <th>
+                                Status
+                            </th>
+
+                            <th>
+                                Severity
+                            </th>
+
+                            <th>
+                                Message
+                            </th>
+
+                        </tr>
+
+                    </thead>
+
+
+                    <tbody id="logsTableBody">
+
+                        <tr>
+
+                            <td colspan="8">
+
+                                <div class="loading">
+                                    Loading security logs...
+                                </div>
+
+                            </td>
+
+                        </tr>
+
+                    </tbody>
+
+
+                </table>
+
+            </div>
+
+
+            <!-- TABLE FOOTER -->
+
+            <div class="logs-pagination">
+
+                <div
+                    class="pagination-info"
+                    id="logCount"
+                >
+                    0 logs
+                </div>
+
+            </div>
+
+
+        </section>
+
+
+        <!-- FOOTER -->
+
+        <footer class="dashboard-footer">
+
+            <div>
+
+                <strong>
+                    SECUREX
+                </strong>
+
+                Security Operations Center
+
+            </div>
+
+
+            <div>
+
+                Flask API
+
+                <span class="footer-dot"></span>
+
+                Database Connected
+
+                <span class="footer-dot"></span>
+
+                Monitoring Active
+
+            </div>
+
+
+            <div>
+                v1.0.0
+            </div>
+
+        </footer>
+
+
+    </main>
+
+
+</div>
+
+<script src="js/auth.js"></script>
+<script src="js/logs.js"></script>
+
+
+</body>
+
+</html>

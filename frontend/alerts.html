@@ -1,0 +1,621 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+
+    <meta charset="UTF-8">
+
+    <meta
+        name="viewport"
+        content="width=device-width, initial-scale=1.0"
+    >
+
+    <title>Security Alerts | Security Log Analyzer</title>
+
+    <!-- Common Dashboard CSS -->
+    <link
+        rel="stylesheet"
+        href="css/index.css"
+    >
+
+    <!-- Alerts Page CSS -->
+    <link
+        rel="stylesheet"
+        href="css/alerts.css"
+    >
+
+</head>
+
+
+<body>
+
+
+<div class="soc-layout">
+
+
+    <!-- =====================================================
+         SIDEBAR
+         SAME AS DASHBOARD
+         ===================================================== -->
+
+    <aside class="sidebar">
+
+
+        <!-- BRAND -->
+
+        <div class="sidebar-brand">
+
+            <div class="brand-shield">
+                🛡
+            </div>
+
+            <div class="brand-text">
+
+                <strong>
+                    SECURE<span>X</span>
+                </strong>
+
+                <small>
+                    SECURITY OPERATIONS CENTER
+                </small>
+
+            </div>
+
+        </div>
+
+
+        <!-- SYSTEM STATUS -->
+
+        <div class="sidebar-status">
+
+            <span class="online-dot"></span>
+
+            <div>
+
+                <strong>
+                    SOC ONLINE
+                </strong>
+
+                <small>
+                    Monitoring active
+                </small>
+
+            </div>
+
+        </div>
+
+
+        <!-- NAVIGATION -->
+
+        <nav class="main-nav">
+
+
+            <!-- MONITORING -->
+
+            <div class="nav-label">
+                MONITORING
+            </div>
+
+
+            <a
+                href="index.html"
+                class="nav-item"
+            >
+
+                <span class="nav-icon">
+                    ⌂
+                </span>
+
+                <span>
+                    Dashboard
+                </span>
+
+                <b>
+                    01
+                </b>
+
+            </a>
+
+
+            <a
+                href="logs.html"
+                class="nav-item"
+            >
+
+                <span class="nav-icon">
+                    ▤
+                </span>
+
+                <span>
+                    Security Logs
+                </span>
+
+                <b>
+                    02
+                </b>
+
+            </a>
+
+
+            <a
+                href="alerts.html"
+                class="nav-item active"
+            >
+
+                <span class="nav-icon">
+                    ⚠
+                </span>
+
+                <span>
+                    Alerts
+                </span>
+
+                <b>
+                    03
+                </b>
+
+            </a>
+
+
+            <!-- INTELLIGENCE -->
+
+            <div class="nav-label">
+                INTELLIGENCE
+            </div>
+
+
+            <a
+                href="threat-intelligence.html"
+                class="nav-item"
+            >
+
+                <span class="nav-icon">
+                    ◎
+                </span>
+
+                <span>
+                    Threat Intelligence
+                </span>
+
+                <b>
+                    04
+                </b>
+
+            </a>
+
+
+            <a
+                href="ai-analysis.html"
+                class="nav-item"
+            >
+
+                <span class="nav-icon">
+                    ✦
+                </span>
+
+                <span>
+                    AI Analysis
+                </span>
+
+                <b>
+                    05
+                </b>
+
+            </a>
+
+
+        </nav>
+
+
+        <!-- SIDEBAR BOTTOM -->
+
+        <div class="sidebar-bottom">
+
+
+            <div class="environment-card">
+
+                <span class="environment-icon">
+                    ◉
+                </span>
+
+                <div>
+
+                    <strong>
+                        LOCAL ENVIRONMENT
+                    </strong>
+
+                    <small>
+                        Protected
+                    </small>
+
+                </div>
+
+            </div>
+
+
+            <div class="user-profile">
+
+                <div class="avatar">
+                    A
+                </div>
+
+                <div class="user-info">
+
+                    <strong>
+                        Administrator
+                    </strong>
+
+                    <small>
+                        Security Analyst
+                    </small>
+
+                </div>
+
+                <span class="user-more">
+                    ⋮
+                </span>
+
+            </div>
+
+
+        </div>
+
+
+    </aside>
+
+
+    <!-- =====================================================
+         MAIN CONTENT
+         ===================================================== -->
+
+    <main class="main-content">
+
+
+        <!-- HEADER -->
+
+        <div class="alerts-header">
+
+            <div>
+
+                <div class="breadcrumb">
+                    SECURITY CENTER /
+                    <span>ALERTS</span>
+                </div>
+
+                <h1>
+                    Security Alerts
+                </h1>
+
+                <p>
+                    Monitor and investigate detected security threats.
+                </p>
+
+            </div>
+
+        </div>
+
+
+        <!-- =================================================
+             SUMMARY CARDS
+             ================================================= -->
+
+        <div class="alerts-summary">
+
+
+            <div class="alert-summary-card">
+
+                <h3>
+                    Total Alerts
+                </h3>
+
+                <div
+                    class="alert-summary-number"
+                    id="totalAlerts"
+                >
+                    0
+                </div>
+
+                <p>
+                    Detected security alerts
+                </p>
+
+            </div>
+
+
+            <div class="alert-summary-card">
+
+                <h3>
+                    Critical
+                </h3>
+
+                <div
+                    class="alert-summary-number"
+                    id="criticalAlerts"
+                >
+                    0
+                </div>
+
+                <p>
+                    Critical severity alerts
+                </p>
+
+            </div>
+
+
+            <div class="alert-summary-card">
+
+                <h3>
+                    High
+                </h3>
+
+                <div
+                    class="alert-summary-number"
+                    id="highAlerts"
+                >
+                    0
+                </div>
+
+                <p>
+                    High severity alerts
+                </p>
+
+            </div>
+
+
+            <div class="alert-summary-card">
+
+                <h3>
+                    Open
+                </h3>
+
+                <div
+                    class="alert-summary-number"
+                    id="openAlerts"
+                >
+                    0
+                </div>
+
+                <p>
+                    Alerts requiring review
+                </p>
+
+            </div>
+
+
+        </div>
+
+
+        <!-- =================================================
+             FILTER PANEL
+             ================================================= -->
+
+        <section class="alerts-filter-panel">
+
+
+            <div class="alerts-filter-title">
+                🔎 Search & Filter Alerts
+            </div>
+
+
+            <div class="alerts-filters">
+
+
+                <input
+                    type="text"
+                    id="alertSearch"
+                    placeholder="Search alert, IP, description..."
+                >
+
+
+                <select id="alertSeverityFilter">
+
+                    <option value="">
+                        All Severity
+                    </option>
+
+                    <option value="Critical">
+                        Critical
+                    </option>
+
+                    <option value="High">
+                        High
+                    </option>
+
+                    <option value="Medium">
+                        Medium
+                    </option>
+
+                    <option value="Low">
+                        Low
+                    </option>
+
+                </select>
+
+
+                <select id="alertStatusFilter">
+
+                    <option value="">
+                        All Status
+                    </option>
+
+                    <option value="Open">
+                        Open
+                    </option>
+
+                    <option value="Closed">
+                        Closed
+                    </option>
+
+                </select>
+
+
+                <button
+                    class="clear-filters"
+                    onclick="clearAlertFilters()"
+                >
+                    Clear Filters
+                </button>
+
+
+            </div>
+
+        </section>
+
+
+        <!-- =================================================
+             ALERT TABLE
+             ================================================= -->
+
+        <section class="alerts-table-panel">
+
+
+            <div class="alerts-table-header">
+
+                <h2>
+                    Detected Security Alerts
+                </h2>
+
+                <span
+                    class="alerts-count"
+                    id="alertsCount"
+                >
+                    0 alerts
+                </span>
+
+            </div>
+
+
+            <div class="alerts-table-wrapper">
+
+                <table class="alerts-table">
+
+
+                    <thead>
+
+                        <tr>
+
+                            <th>
+                                ID
+                            </th>
+
+                            <th>
+                                Alert Type
+                            </th>
+
+                            <th>
+                                Description
+                            </th>
+
+                            <th>
+                                Severity
+                            </th>
+
+                            <th>
+                                Status
+                            </th>
+
+                            <th>
+                                Source IP
+                            </th>
+
+                            <th>
+                                Detected At
+                            </th>
+
+                            <th>
+                                Action
+                            </th>
+
+                        </tr>
+
+                    </thead>
+
+
+                    <tbody id="alertsTableBody">
+
+                        <tr>
+
+                            <td colspan="8">
+
+                                <div class="loading">
+                                    Loading security alerts...
+                                </div>
+
+                            </td>
+
+                        </tr>
+
+                    </tbody>
+
+
+                </table>
+
+            </div>
+
+
+            <div class="alerts-pagination">
+
+                <div
+                    class="pagination-info"
+                    id="alertCount"
+                >
+                    0 alerts
+                </div>
+
+            </div>
+
+
+        </section>
+
+
+        <!-- =================================================
+             FOOTER
+             ================================================= -->
+
+        <footer class="dashboard-footer">
+
+            <div>
+
+                <strong>
+                    SECUREX
+                </strong>
+
+                Security Operations Center
+
+            </div>
+
+
+            <div>
+
+                Flask API
+
+                <span class="footer-dot"></span>
+
+                Database Connected
+
+                <span class="footer-dot"></span>
+
+                Monitoring Active
+
+            </div>
+
+
+            <div>
+                v1.0.0
+            </div>
+
+        </footer>
+
+
+    </main>
+
+
+</div>
+
+<script src="js/auth.js"></script>
+<script src="js/alerts.js"></script>
+
+
+</body>
+
+</html>

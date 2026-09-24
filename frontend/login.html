@@ -1,0 +1,461 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+
+    <meta charset="UTF-8">
+
+    <meta
+        name="viewport"
+        content="width=device-width, initial-scale=1.0">
+
+    <title>Secure Login | Security Log Analyzer</title>
+
+    <link rel="stylesheet" href="css/login.css">
+
+</head>
+
+
+<body>
+
+    <!-- Animated Background -->
+
+    <div class="background">
+
+        <div class="grid"></div>
+
+        <div class="glow glow-one"></div>
+        <div class="glow glow-two"></div>
+
+        <div class="particles">
+            <span></span>
+            <span></span>
+            <span></span>
+            <span></span>
+            <span></span>
+            <span></span>
+            <span></span>
+            <span></span>
+        </div>
+
+    </div>
+
+
+    <!-- LOGIN PAGE -->
+
+    <main class="login-page">
+
+
+        <!-- LEFT BRAND SECTION -->
+
+        <section class="brand-section">
+
+
+            <div class="brand-top">
+
+                <div class="shield">
+
+                    <div class="shield-inner">
+                        🛡
+                    </div>
+
+                </div>
+
+
+                <div class="brand-name">
+
+                    <h1>
+                        SECURITY
+                    </h1>
+
+                    <span>
+                        LOG ANALYZER
+                    </span>
+
+                </div>
+
+            </div>
+
+
+            <div class="brand-content">
+
+                <div class="eyebrow">
+
+                    <span class="live-dot"></span>
+
+                    SECURITY OPERATIONS CENTER
+
+                </div>
+
+
+                <h2>
+
+                    Detect.
+                    <span>Analyze.</span>
+                    Protect.
+
+                </h2>
+
+
+                <p>
+
+                    Intelligent security monitoring and
+                    threat detection platform designed to
+                    identify suspicious activity before it
+                    becomes a serious security incident.
+
+                </p>
+
+
+                <!-- FEATURES -->
+
+                <div class="security-features">
+
+
+                    <div class="feature">
+
+                        <div class="feature-icon">
+                            ◈
+                        </div>
+
+                        <div>
+
+                            <strong>
+                                Real-Time Monitoring
+                            </strong>
+
+                            <small>
+                                Monitor security events continuously
+                            </small>
+
+                        </div>
+
+                    </div>
+
+
+                    <div class="feature">
+
+                        <div class="feature-icon">
+                            ◉
+                        </div>
+
+                        <div>
+
+                            <strong>
+                                Threat Detection
+                            </strong>
+
+                            <small>
+                                Detect suspicious authentication activity
+                            </small>
+
+                        </div>
+
+                    </div>
+
+
+                    <div class="feature">
+
+                        <div class="feature-icon">
+                            ✦
+                        </div>
+
+                        <div>
+
+                            <strong>
+                                AI Security Analysis
+                            </strong>
+
+                            <small>
+                                Analyze patterns and security risks
+                            </small>
+
+                        </div>
+
+                    </div>
+
+
+                </div>
+
+
+            </div>
+
+
+            <div class="brand-footer">
+
+                <span>
+                    SYSTEM STATUS
+                </span>
+
+                <div class="system-online">
+
+                    <i></i>
+
+                    All Security Systems Operational
+
+                </div>
+
+            </div>
+
+
+        </section>
+
+
+        <!-- LOGIN CARD -->
+
+        <section class="login-section">
+
+
+            <div class="login-card">
+
+
+                <!-- CARD HEADER -->
+
+                <div class="login-header">
+
+
+                    <div class="mobile-logo">
+
+                        <div class="mini-shield">
+                            🛡
+                        </div>
+
+                    </div>
+
+
+                    <span class="secure-badge">
+
+                        <i></i>
+
+                        SECURE ACCESS
+
+                    </span>
+
+
+                    <h2>
+                        Welcome Back
+                    </h2>
+
+
+                    <p>
+                        Sign in to access your security dashboard
+                    </p>
+
+                </div>
+
+
+                <!-- LOGIN FORM -->
+
+                <form
+                    id="loginForm"
+                    autocomplete="off">
+
+
+                    <!-- EMAIL -->
+
+                    <div class="input-group">
+
+                        <label for="username">
+
+                            Username / Email
+
+                        </label>
+
+
+                        <div class="input-wrapper">
+
+                            <span class="input-icon">
+                                ◉
+                            </span>
+
+
+                            <input
+                                type="text"
+                                id="username"
+                                name="username"
+                                placeholder="Enter your username"
+                                autocomplete="username"
+                                required>
+
+
+                        </div>
+
+                    </div>
+
+
+                    <!-- PASSWORD -->
+
+                    <div class="input-group">
+
+                        <div class="password-label">
+
+                            <label for="password">
+                                Password
+                            </label>
+
+                            <a href="#" onclick="forgotPassword(event)">
+                                Forgot password?
+                            </a>
+
+                        </div>
+
+
+                        <div class="input-wrapper">
+
+                            <span class="input-icon">
+                                ◆
+                            </span>
+
+
+                            <input
+                                type="password"
+                                id="password"
+                                name="password"
+                                placeholder="Enter your password"
+                                autocomplete="current-password"
+                                required>
+
+
+                            <button
+                                type="button"
+                                class="password-toggle"
+                                id="togglePassword"
+                                aria-label="Show password">
+
+                                ◉
+
+                            </button>
+
+                        </div>
+
+                    </div>
+
+
+                    <!-- REMEMBER -->
+
+                    <div class="login-options">
+
+
+                        <label class="remember">
+
+                            <input
+                                type="checkbox"
+                                id="rememberMe">
+
+                            <span class="checkmark"></span>
+
+                            Remember me
+
+                        </label>
+
+
+                        <span class="session-info">
+
+                            Session protected
+
+                        </span>
+
+
+                    </div>
+
+
+                    <!-- LOGIN BUTTON -->
+
+                    <button
+                        type="submit"
+                        class="login-button"
+                        id="loginButton">
+
+
+                        <span class="button-text">
+                            Sign In Securely
+                        </span>
+
+
+                        <span class="button-arrow">
+                            →
+                        </span>
+
+
+                    </button>
+
+
+                    <!-- ERROR / SUCCESS -->
+
+                    <div
+                        id="loginMessage"
+                        class="login-message">
+                    </div>
+
+
+                </form>
+
+
+                <!-- DEMO INFORMATION -->
+
+                <div class="demo-info">
+
+
+                    <div class="demo-title">
+
+                        <span>
+                            DEMO ENVIRONMENT
+                        </span>
+
+                    </div>
+
+
+                    <p>
+                        Demo credentials:
+                    </p>
+
+
+                    <div class="demo-credentials">
+
+                        <span>
+                            Username: <strong>admin</strong>
+                        </span>
+
+                        <span>
+                            Password: <strong>admin123</strong>
+                        </span>
+
+                    </div>
+
+
+                </div>
+
+
+                <!-- SECURITY FOOTER -->
+
+                <div class="login-security">
+
+                    <span>
+                        🔒
+                    </span>
+
+                    Protected Security Environment
+
+                    <span class="separator">
+                        •
+                    </span>
+
+                    Local Authentication
+
+                </div>
+
+
+            </div>
+
+
+        </section>
+
+
+    </main>
+
+
+    <script src="js/login.js"></script>
+
+</body>
+
+</html>

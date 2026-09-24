@@ -1,0 +1,667 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+    <title>Threat Intelligence | Security Log Analyzer</title>
+
+    <link rel="stylesheet" href="css/index.css">
+    <link rel="stylesheet" href="css/threat-intelligence.css">
+</head>
+
+<body>
+
+<div class="soc-layout">
+
+    <!-- =========================
+         SIDEBAR
+    ========================== -->
+
+    <aside class="sidebar">
+
+        <!-- BRAND -->
+        <div class="sidebar-brand">
+
+            <div class="brand-shield">
+                🛡
+            </div>
+
+            <div class="brand-text">
+                <strong>SECURE<span>X</span></strong>
+                <small>SECURITY OPERATIONS CENTER</small>
+            </div>
+
+        </div>
+
+
+        <!-- STATUS -->
+        <div class="sidebar-status">
+
+            <span class="online-dot"></span>
+
+            <div>
+                <strong>SOC ONLINE</strong>
+                <small>Monitoring active</small>
+            </div>
+
+        </div>
+
+
+        <!-- NAVIGATION -->
+        <nav class="main-nav">
+
+            <div class="nav-label">
+                MONITORING
+            </div>
+
+
+            <a href="index.html" class="nav-item">
+
+                <span class="nav-icon">⌂</span>
+
+                <span>Dashboard</span>
+
+                <b>01</b>
+
+            </a>
+
+
+            <a href="logs.html" class="nav-item">
+
+                <span class="nav-icon">▤</span>
+
+                <span>Security Logs</span>
+
+                <b>02</b>
+
+            </a>
+
+
+            <a href="alerts.html" class="nav-item">
+
+                <span class="nav-icon">⚠</span>
+
+                <span>Alerts</span>
+
+                <b>03</b>
+
+            </a>
+
+
+            <div class="nav-label">
+                INTELLIGENCE
+            </div>
+
+
+            <!-- ACTIVE PAGE -->
+            <a
+                href="threat-intelligence.html"
+                class="nav-item active">
+
+                <span class="nav-icon">◎</span>
+
+                <span>Threat Intelligence</span>
+
+                <b>04</b>
+
+            </a>
+
+
+            <a href="ai-analysis.html" class="nav-item">
+
+                <span class="nav-icon">✦</span>
+
+                <span>AI Analysis</span>
+
+                <b>05</b>
+
+            </a>
+
+        </nav>
+
+
+        <!-- SIDEBAR BOTTOM -->
+        <div class="sidebar-bottom">
+
+            <div class="environment-card">
+
+                <span class="environment-icon">
+                    ◉
+                </span>
+
+                <div>
+
+                    <strong>
+                        LOCAL ENVIRONMENT
+                    </strong>
+
+                    <small>
+                        Protected
+                    </small>
+
+                </div>
+
+            </div>
+
+
+            <div class="user-profile">
+
+                <div class="avatar">
+                    A
+                </div>
+
+                <div class="user-info">
+
+                    <strong>
+                        Administrator
+                    </strong>
+
+                    <small>
+                        Security Analyst
+                    </small>
+
+                </div>
+
+                <span class="user-more">
+                    ⋮
+                </span>
+
+            </div>
+
+        </div>
+
+    </aside>
+
+
+    <!-- =========================
+         MAIN CONTENT
+    ========================== -->
+
+    <main class="main-content">
+
+
+        <!-- HEADER -->
+
+        <div class="threat-header">
+
+            <div>
+
+                <div class="breadcrumb">
+                    SECURITY CENTER /
+                    <span>THREAT INTELLIGENCE</span>
+                </div>
+
+                <h1>
+                    Threat Intelligence
+                </h1>
+
+                <p>
+                    Analyze suspicious IP activity and security events.
+                </p>
+
+            </div>
+
+        </div>
+
+
+        <!-- =========================
+             SUMMARY CARDS
+        ========================== -->
+
+        <div class="threat-summary">
+
+
+            <div class="threat-summary-card">
+
+                <h3>
+                    Total Log Events
+                </h3>
+
+                <div
+                    class="threat-summary-number"
+                    id="totalThreatLogs">
+
+                    0
+
+                </div>
+
+                <p>
+                    Security events analyzed
+                </p>
+
+            </div>
+
+
+            <div class="threat-summary-card">
+
+                <h3>
+                    Failed Logins
+                </h3>
+
+                <div
+                    class="threat-summary-number"
+                    id="failedThreats">
+
+                    0
+
+                </div>
+
+                <p>
+                    Failed authentication attempts
+                </p>
+
+            </div>
+
+
+            <div class="threat-summary-card">
+
+                <h3>
+                    Access Denied
+                </h3>
+
+                <div
+                    class="threat-summary-number"
+                    id="deniedThreats">
+
+                    0
+
+                </div>
+
+                <p>
+                    Unauthorized access events
+                </p>
+
+            </div>
+
+
+            <div class="threat-summary-card">
+
+                <h3>
+                    Unique IPs
+                </h3>
+
+                <div
+                    class="threat-summary-number"
+                    id="uniqueThreatIPs">
+
+                    0
+
+                </div>
+
+                <p>
+                    Source IP addresses
+                </p>
+
+            </div>
+
+        </div>
+
+
+        <!-- =========================
+             IP THREAT LOOKUP
+        ========================== -->
+
+        <section class="threat-lookup-panel">
+
+
+            <div class="section-title">
+                🌐 IP Threat Lookup
+            </div>
+
+
+            <p class="section-description">
+
+                Enter an IP address to analyze its activity
+                from the available security logs.
+
+            </p>
+
+
+            <div class="ip-search-box">
+
+                <input
+                    type="text"
+                    id="ipLookup"
+                    placeholder="Enter IP address e.g. 192.168.1.20"
+                >
+
+
+                <button
+                    type="button"
+                    onclick="lookupIP()">
+
+                    Analyze IP
+
+                </button>
+
+            </div>
+
+
+            <div
+                id="threatError"
+                class="threat-error">
+            </div>
+
+        </section>
+
+
+        <!-- =========================
+             IP RESULT
+        ========================== -->
+
+        <section
+            class="ip-result"
+            id="ipResult">
+
+
+            <div class="ip-result-header">
+
+                <div>
+
+                    <span class="result-label">
+                        ANALYSIS RESULT
+                    </span>
+
+                    <h2>
+                        IP Analysis Result
+                    </h2>
+
+                </div>
+
+
+                <span
+                    id="resultIP"
+                    class="result-ip">
+
+                    -
+
+                </span>
+
+            </div>
+
+
+            <div class="ip-result-stats">
+
+
+                <div>
+
+                    <span>
+                        Total Events
+                    </span>
+
+                    <strong
+                        id="ipTotalEvents">
+
+                        0
+
+                    </strong>
+
+                </div>
+
+
+                <div>
+
+                    <span>
+                        Failed Logins
+                    </span>
+
+                    <strong
+                        id="ipFailedEvents">
+
+                        0
+
+                    </strong>
+
+                </div>
+
+
+                <div>
+
+                    <span>
+                        Access Denied
+                    </span>
+
+                    <strong
+                        id="ipDeniedEvents">
+
+                        0
+
+                    </strong>
+
+                </div>
+
+
+                <div>
+
+                    <span>
+                        Risk Level
+                    </span>
+
+                    <strong
+                        id="ipRisk"
+                        class="risk-level low">
+
+                        LOW
+
+                    </strong>
+
+                </div>
+
+            </div>
+
+
+            <div class="ip-risk-message">
+
+                <strong>
+                    Assessment:
+                </strong>
+
+                <span id="ipRiskMessage">
+                    -
+                </span>
+
+            </div>
+
+
+        </section>
+
+
+        <!-- =========================
+             DETECTION RULES
+        ========================== -->
+
+        <section class="threat-rules-panel">
+
+
+            <div class="section-title">
+                🧠 Detection Rules
+            </div>
+
+
+            <div class="threat-rules">
+
+
+                <div class="threat-rule">
+
+                    <span class="rule-icon">
+                        🔴
+                    </span>
+
+                    <div>
+
+                        <strong>
+                            High Risk
+                        </strong>
+
+                        <p>
+                            5 or more failed login attempts
+                            from the same IP.
+                        </p>
+
+                    </div>
+
+                </div>
+
+
+                <div class="threat-rule">
+
+                    <span class="rule-icon">
+                        🟠
+                    </span>
+
+                    <div>
+
+                        <strong>
+                            Medium Risk
+                        </strong>
+
+                        <p>
+                            3 or more failed logins or
+                            multiple access-denied events.
+                        </p>
+
+                    </div>
+
+                </div>
+
+
+                <div class="threat-rule">
+
+                    <span class="rule-icon">
+                        🟢
+                    </span>
+
+                    <div>
+
+                        <strong>
+                            Low Risk
+                        </strong>
+
+                        <p>
+                            No significant suspicious
+                            activity detected.
+                        </p>
+
+                    </div>
+
+                </div>
+
+
+            </div>
+
+        </section>
+
+
+        <!-- =========================
+             INTELLIGENCE SOURCES
+        ========================== -->
+
+        <section class="intelligence-source-panel">
+
+
+            <div class="section-title">
+                🔍 Intelligence Sources
+            </div>
+
+
+            <div class="source-card">
+
+
+                <div class="source-icon">
+                    🗄️
+                </div>
+
+
+                <div>
+
+                    <h3>
+                        Internal Security Logs
+                    </h3>
+
+                    <p>
+                        Threat analysis is currently
+                        performed using security events
+                        stored in the project database.
+                    </p>
+
+                    <span class="source-status">
+                        ● Active
+                    </span>
+
+                </div>
+
+            </div>
+
+
+            <div class="source-card">
+
+
+                <div class="source-icon">
+                    🌐
+                </div>
+
+
+                <div>
+
+                    <h3>
+                        External Threat Feeds
+                    </h3>
+
+                    <p>
+                        External threat intelligence feeds
+                        can be integrated in a future version.
+                    </p>
+
+                    <span class="source-status inactive">
+                        ● Not Configured
+                    </span>
+
+                </div>
+
+            </div>
+
+
+        </section>
+
+
+        <!-- =========================
+             FOOTER
+        ========================== -->
+
+        <footer class="dashboard-footer">
+
+            <div>
+                <strong>SECUREX</strong>
+                Security Operations Center
+            </div>
+
+            <div>
+                Flask API
+                <span class="footer-dot"></span>
+                Database Connected
+                <span class="footer-dot"></span>
+                Monitoring Active
+            </div>
+
+            <div>
+                v1.0.0
+            </div>
+
+        </footer>
+
+
+    </main>
+
+</div>
+
+
+<!-- JAVASCRIPT -->
+<script src="js/auth.js"></script>
+<script src="js/threat-intelligence.js"></script>
+
+</body>
+
+</html>

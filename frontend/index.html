@@ -1,0 +1,1066 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+
+    <meta charset="UTF-8">
+
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+    <title>Security Log Analyzer & Alert Dashboard</title>
+
+    <link rel="stylesheet" href="css/index.css">
+
+    <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
+
+</head>
+
+
+<body>
+
+<div class="soc-layout">
+
+
+    <!-- =====================================================
+         SIDEBAR
+         ===================================================== -->
+
+    <aside class="sidebar">
+
+
+        <div class="sidebar-brand">
+
+            <div class="brand-shield">
+                🛡
+            </div>
+
+            <div class="brand-text">
+
+                <strong>
+                    SECURE<span>X</span>
+                </strong>
+
+                <small>
+                    SECURITY OPERATIONS CENTER
+                </small>
+
+            </div>
+
+        </div>
+
+
+        <!-- SYSTEM STATUS -->
+
+        <div class="sidebar-status">
+
+            <span class="online-dot"></span>
+
+            <div>
+
+                <strong>
+                    SOC ONLINE
+                </strong>
+
+                <small>
+                    Monitoring active
+                </small>
+
+            </div>
+
+        </div>
+
+
+        <!-- NAVIGATION -->
+
+        <nav class="main-nav">
+
+
+            <div class="nav-label">
+                MONITORING
+            </div>
+
+
+            <a
+                href="index.html"
+                class="nav-item active">
+
+                <span class="nav-icon">⌂</span>
+
+                <span>
+                    Dashboard
+                </span>
+
+                <b>01</b>
+
+            </a>
+
+
+            <a
+                href="logs.html"
+                class="nav-item">
+
+                <span class="nav-icon">▤</span>
+
+                <span>
+                    Security Logs
+                </span>
+
+                <b>02</b>
+
+            </a>
+
+
+            <a
+                href="alerts.html"
+                class="nav-item">
+
+                <span class="nav-icon">⚠</span>
+
+                <span>
+                    Alerts
+                </span>
+
+                <b>03</b>
+
+            </a>
+
+
+            <div class="nav-label">
+                INTELLIGENCE
+            </div>
+
+
+            <a
+                href="threat-intelligence.html"
+                class="nav-item">
+
+                <span class="nav-icon">◎</span>
+
+                <span>
+                    Threat Intelligence
+                </span>
+
+                <b>04</b>
+
+            </a>
+
+
+            <a
+                href="ai-analysis.html"
+                class="nav-item">
+
+                <span class="nav-icon">✦</span>
+
+                <span>
+                    AI Analysis
+                </span>
+
+                <b>05</b>
+
+            </a>
+
+
+        </nav>
+
+
+        <!-- SIDEBAR BOTTOM -->
+
+        <div class="sidebar-bottom">
+
+
+            <div class="environment-card">
+
+                <span class="environment-icon">
+                    ◉
+                </span>
+
+                <div>
+
+                    <strong>
+                        LOCAL ENVIRONMENT
+                    </strong>
+
+                    <small>
+                        Protected
+                    </small>
+
+                </div>
+
+            </div>
+
+
+            <div class="user-profile">
+
+                <div class="avatar">
+                    A
+                </div>
+
+                <div class="user-info">
+
+                    <strong>
+                        Administrator
+                    </strong>
+
+                    <small>
+                        Security Analyst
+                    </small>
+
+                </div>
+
+                <button class="user-more" id="logoutButton" title="Logout">
+                    ↪
+                </button>
+
+            </div>
+
+
+        </div>
+
+    </aside>
+
+
+    <!-- =====================================================
+         MAIN
+         ===================================================== -->
+
+    <main class="main-content">
+
+
+        <!-- TOP BAR -->
+
+        <header class="topbar">
+
+
+            <div>
+
+                <div class="breadcrumb">
+                    SECURITY CENTER / <span>DASHBOARD</span>
+                </div>
+
+                <h1>
+                    Security Overview
+                </h1>
+
+                <p>
+                    Real-time visibility into your security environment
+                </p>
+
+            </div>
+
+
+            <div class="topbar-actions">
+
+
+                <div class="live-indicator">
+
+                    <span></span>
+
+                    LIVE MONITORING
+
+                </div>
+
+
+                <button
+                    class="refresh-btn"
+                    onclick="loadDashboard()">
+
+                    ↻
+                    <span>
+                        Refresh
+                    </span>
+
+                </button>
+
+
+                <button
+                    id="logoutButton"
+                    class="refresh-btn"
+                    type="button">
+
+                    ↪
+                    <span>
+                        Logout
+                    </span>
+
+                </button>
+
+
+                <div class="profile-circle">
+                    A
+                </div>
+
+
+            </div>
+
+
+        </header>
+
+
+        <!-- =====================================================
+             HERO ALERT
+             ===================================================== -->
+
+        <section class="security-banner">
+
+
+            <div class="banner-left">
+
+                <div class="banner-icon">
+                    ✓
+                </div>
+
+                <div>
+
+                    <span class="banner-label">
+                        SECURITY STATUS
+                    </span>
+
+                    <h2>
+                        Environment is being monitored
+                    </h2>
+
+                    <p>
+                        Your security monitoring engine is active
+                        and analyzing incoming events.
+                    </p>
+
+                </div>
+
+            </div>
+
+
+            <div class="banner-time">
+
+                <span>
+                    SYSTEM
+                </span>
+
+                <strong>
+                    OPERATIONAL
+                </strong>
+
+            </div>
+
+
+        </section>
+
+
+        <!-- =====================================================
+             STATISTICS
+             ===================================================== -->
+
+        <section class="stats-grid">
+
+
+            <!-- TOTAL LOGS -->
+
+            <div class="stat-card">
+
+                <div class="stat-top">
+
+                    <span class="stat-label">
+                        TOTAL EVENTS
+                    </span>
+
+                    <div class="stat-icon blue">
+                        ◈
+                    </div>
+
+                </div>
+
+
+                <div
+                    class="stat-value"
+                    id="totalLogs">
+
+                    0
+
+                </div>
+
+
+                <div class="stat-bottom">
+
+                    <span class="stat-positive">
+                        ● Live
+                    </span>
+
+                    <span>
+                        Security events
+                    </span>
+
+                </div>
+
+            </div>
+
+
+            <!-- FAILED LOGIN -->
+
+            <div class="stat-card danger-card">
+
+                <div class="stat-top">
+
+                    <span class="stat-label">
+                        FAILED LOGINS
+                    </span>
+
+                    <div class="stat-icon red">
+                        ⚠
+                    </div>
+
+                </div>
+
+
+                <div
+                    class="stat-value"
+                    id="failedLogins">
+
+                    0
+
+                </div>
+
+
+                <div class="stat-bottom">
+
+                    <span class="stat-danger">
+                        ● Attention
+                    </span>
+
+                    <span>
+                        Authentication failures
+                    </span>
+
+                </div>
+
+            </div>
+
+
+            <!-- ACCESS DENIED -->
+
+            <div class="stat-card">
+
+                <div class="stat-top">
+
+                    <span class="stat-label">
+                        ACCESS DENIED
+                    </span>
+
+                    <div class="stat-icon orange">
+                        ◫
+                    </div>
+
+                </div>
+
+
+                <div
+                    class="stat-value"
+                    id="accessDenied">
+
+                    0
+
+                </div>
+
+
+                <div class="stat-bottom">
+
+                    <span class="stat-warning">
+                        ● Review
+                    </span>
+
+                    <span>
+                        Unauthorized events
+                    </span>
+
+                </div>
+
+            </div>
+
+
+            <!-- ALERTS -->
+
+            <div class="stat-card">
+
+                <div class="stat-top">
+
+                    <span class="stat-label">
+                        ACTIVE ALERTS
+                    </span>
+
+                    <div class="stat-icon purple">
+                        ◉
+                    </div>
+
+                </div>
+
+
+                <div
+                    class="stat-value"
+                    id="totalAlerts">
+
+                    0
+
+                </div>
+
+
+                <div class="stat-bottom">
+
+                    <span class="stat-info">
+                        ● Detected
+                    </span>
+
+                    <span>
+                        Security alerts
+                    </span>
+
+                </div>
+
+            </div>
+
+
+            <!-- HIGH ALERTS -->
+
+            <div class="stat-card critical-card">
+
+                <div class="stat-top">
+
+                    <span class="stat-label">
+                        HIGH THREATS
+                    </span>
+
+                    <div class="stat-icon critical">
+                        !
+                    </div>
+
+                </div>
+
+
+                <div
+                    class="stat-value critical-number"
+                    id="highAlerts">
+
+                    0
+
+                </div>
+
+
+                <div class="stat-bottom">
+
+                    <span class="stat-danger">
+                        ● Priority
+                    </span>
+
+                    <span>
+                        High / Critical
+                    </span>
+
+                </div>
+
+            </div>
+
+
+        </section>
+
+
+        <!-- =====================================================
+             CHART + AI INSIGHT
+             ===================================================== -->
+
+        <section class="main-grid">
+
+
+            <!-- SECURITY CHART -->
+
+            <div class="panel chart-panel">
+
+
+                <div class="panel-heading">
+
+
+                    <div>
+
+                        <span class="panel-eyebrow">
+                            ACTIVITY ANALYTICS
+                        </span>
+
+                        <h2>
+                            Security Event Overview
+                        </h2>
+
+                    </div>
+
+
+                    <div class="chart-status">
+                        ● LIVE DATA
+                    </div>
+
+                </div>
+
+
+                <div class="charts-container">
+
+                    <div class="chart-box">
+
+                        <div class="chart-box-title">
+                            Event Distribution
+                        </div>
+
+                        <div class="chart-wrapper">
+
+                            <canvas id="securityChart"></canvas>
+
+                        </div>
+
+                    </div>
+
+
+                    <div class="chart-box">
+
+                        <div class="chart-box-title">
+                            Event Comparison
+                        </div>
+
+                        <div class="chart-wrapper">
+
+                            <canvas id="eventBarChart"></canvas>
+
+                        </div>
+
+                    </div>
+
+                </div>
+
+
+                <div class="chart-legend">
+
+                    <span>
+                        <i class="legend-success"></i>
+                        Successful Login
+                    </span>
+
+                    <span>
+                        <i class="legend-failed"></i>
+                        Failed Login
+                    </span>
+
+                    <span>
+                        <i class="legend-denied"></i>
+                        Access Denied
+                    </span>
+
+                </div>
+
+
+            </div>
+
+
+            <!-- AI INSIGHT -->
+
+            <div class="panel insight-panel">
+
+
+                <div class="panel-heading">
+
+                    <div>
+
+                        <span class="panel-eyebrow">
+                            INTELLIGENCE ENGINE
+                        </span>
+
+                        <h2>
+                            AI Security Insight
+                        </h2>
+
+                    </div>
+
+                    <span class="ai-badge">
+                        AI
+                    </span>
+
+                </div>
+
+
+                <div class="ai-orb">
+
+                    <div class="orb-ring">
+
+                        <span>
+                            ✦
+                        </span>
+
+                    </div>
+
+                </div>
+
+
+                <div class="insight-content">
+
+                    <span class="insight-status">
+                        ANALYSIS READY
+                    </span>
+
+                    <h3>
+                        Security activity detected
+                    </h3>
+
+                    <p>
+                        Review recent failed authentication
+                        events and investigate unusual source
+                        IP activity.
+                    </p>
+
+
+                    <a
+                        href="ai-analysis.html"
+                        class="insight-button">
+
+                        Open AI Analysis
+                        <span>→</span>
+
+                    </a>
+
+                </div>
+
+
+            </div>
+
+
+        </section>
+
+
+        <!-- =====================================================
+             RECENT ALERTS + THREAT IP
+             ===================================================== -->
+
+        <section class="lower-grid">
+
+
+            <!-- RECENT ALERTS -->
+
+            <div class="panel">
+
+
+                <div class="panel-heading">
+
+
+                    <div>
+
+                        <span class="panel-eyebrow">
+                            SECURITY EVENTS
+                        </span>
+
+                        <h2>
+                            Recent Alerts
+                        </h2>
+
+                    </div>
+
+
+                    <a
+                        href="alerts.html"
+                        class="view-all">
+
+                        View all →
+
+                    </a>
+
+                </div>
+
+
+                <div class="alert-list"
+                     id="recentAlertsBody">
+
+                    <div class="loading-state">
+                        Loading alerts...
+                    </div>
+
+                </div>
+
+
+            </div>
+
+
+            <!-- QUICK ACTIONS -->
+
+            <div class="panel quick-panel">
+
+
+                <div class="panel-heading">
+
+                    <div>
+
+                        <span class="panel-eyebrow">
+                            SECURITY TOOLS
+                        </span>
+
+                        <h2>
+                            Quick Actions
+                        </h2>
+
+                    </div>
+
+                </div>
+
+
+                <div class="quick-actions">
+
+
+                    <a
+                        href="logs.html"
+                        class="quick-action">
+
+                        <div class="quick-icon blue">
+                            ▤
+                        </div>
+
+                        <div>
+
+                            <strong>
+                                Review Logs
+                            </strong>
+
+                            <small>
+                                Analyze security events
+                            </small>
+
+                        </div>
+
+                        <span>
+                            →
+                        </span>
+
+                    </a>
+
+
+                    <a
+                        href="alerts.html"
+                        class="quick-action">
+
+                        <div class="quick-icon red">
+                            ⚠
+                        </div>
+
+                        <div>
+
+                            <strong>
+                                Investigate Alerts
+                            </strong>
+
+                            <small>
+                                Review detected threats
+                            </small>
+
+                        </div>
+
+                        <span>
+                            →
+                        </span>
+
+                    </a>
+
+
+                    <a
+                        href="threat-intelligence.html"
+                        class="quick-action">
+
+                        <div class="quick-icon purple">
+                            ◎
+                        </div>
+
+                        <div>
+
+                            <strong>
+                                IP Intelligence
+                            </strong>
+
+                            <small>
+                                Investigate suspicious IPs
+                            </small>
+
+                        </div>
+
+                        <span>
+                            →
+                        </span>
+
+                    </a>
+
+
+                    <a
+                        href="ai-analysis.html"
+                        class="quick-action">
+
+                        <div class="quick-icon cyan">
+                            ✦
+                        </div>
+
+                        <div>
+
+                            <strong>
+                                Run AI Analysis
+                            </strong>
+
+                            <small>
+                                Detect security patterns
+                            </small>
+
+                        </div>
+
+                        <span>
+                            →
+                        </span>
+
+                    </a>
+
+
+                </div>
+
+
+            </div>
+
+
+        </section>
+
+
+        <!-- =====================================================
+             RECENT LOGS
+             ===================================================== -->
+
+        <section class="panel logs-panel">
+
+
+            <div class="panel-heading">
+
+
+                <div>
+
+                    <span class="panel-eyebrow">
+                        EVENT STREAM
+                    </span>
+
+                    <h2>
+                        Recent Security Logs
+                    </h2>
+
+                </div>
+
+
+                <a
+                    href="logs.html"
+                    class="view-all">
+
+                    View all logs →
+
+                </a>
+
+            </div>
+
+
+            <div class="table-container">
+
+
+                <table class="security-table">
+
+                    <thead>
+
+                        <tr>
+
+                            <th>
+                                TIME
+                            </th>
+
+                            <th>
+                                USER
+                            </th>
+
+                            <th>
+                                SOURCE IP
+                            </th>
+
+                            <th>
+                                EVENT
+                            </th>
+
+                            <th>
+                                STATUS
+                            </th>
+
+                            <th>
+                                SEVERITY
+                            </th>
+
+                        </tr>
+
+                    </thead>
+
+
+                    <tbody id="recentLogsBody">
+
+                        <tr>
+
+                            <td colspan="6"
+                                class="loading-state">
+
+                                Loading security logs...
+
+                            </td>
+
+                        </tr>
+
+                    </tbody>
+
+                </table>
+
+
+            </div>
+
+
+        </section>
+
+
+        <!-- =====================================================
+             FOOTER
+             ===================================================== -->
+
+        <footer class="dashboard-footer">
+
+
+            <div>
+
+                <strong>
+                    SECUREX
+                </strong>
+
+                Security Operations Center
+
+            </div>
+
+
+            <div>
+
+                Flask API
+                <span class="footer-dot"></span>
+
+                Database Connected
+                <span class="footer-dot"></span>
+
+                Monitoring Active
+
+            </div>
+
+
+            <div>
+                v1.0.0
+            </div>
+
+
+        </footer>
+
+
+    </main>
+
+</div>
+
+<script src="js/auth.js"></script>
+<script src="js/index.js"></script>
+</body>
+
+</html>

@@ -1,0 +1,608 @@
+/* =========================================================
+   SECURITY LOG ANALYZER
+   ALERTS PAGE CSS
+   ========================================================= */
+
+
+/* =========================================================
+   ALERT HEADER
+   ========================================================= */
+
+.alerts-header {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    gap: 20px;
+    margin-bottom: 25px;
+}
+
+.alerts-title h1 {
+    color: #ffffff;
+    font-size: 27px;
+    margin-bottom: 6px;
+}
+
+.alerts-title p {
+    color: #7f8ca3;
+    font-size: 13px;
+}
+
+
+/* =========================================================
+   ALERT SUMMARY
+   ========================================================= */
+
+.alerts-summary {
+    display: grid;
+    grid-template-columns: repeat(4, minmax(0, 1fr));
+    gap: 16px;
+    margin-bottom: 22px;
+}
+
+.alert-summary-card {
+    position: relative;
+    overflow: hidden;
+
+    background:
+        linear-gradient(
+            145deg,
+            rgba(18, 29, 48, 0.96),
+            rgba(10, 18, 32, 0.96)
+        );
+
+    border: 1px solid rgba(255, 255, 255, 0.07);
+    border-radius: 13px;
+    padding: 20px;
+}
+
+.alert-summary-card::before {
+    content: "";
+    position: absolute;
+
+    top: 0;
+    left: 0;
+
+    width: 100%;
+    height: 2px;
+
+    background: #00ffaa;
+    opacity: 0.65;
+}
+
+.alert-summary-card h3 {
+    color: #7f8da4;
+    font-size: 11px;
+    font-weight: 500;
+
+    text-transform: uppercase;
+    letter-spacing: 0.8px;
+
+    margin-bottom: 10px;
+}
+
+.alert-summary-number {
+    color: #ffffff;
+    font-size: 28px;
+    font-weight: 700;
+}
+
+.alert-summary-card p {
+    color: #69778d;
+    font-size: 11px;
+    margin-top: 7px;
+}
+
+
+/* =========================================================
+   FILTER PANEL
+   ========================================================= */
+
+.alerts-filter-panel {
+    background: rgba(13, 22, 38, 0.92);
+
+    border: 1px solid rgba(255, 255, 255, 0.07);
+    border-radius: 14px;
+
+    padding: 20px;
+    margin-bottom: 20px;
+}
+
+.alerts-filter-title {
+    color: #ffffff;
+    font-size: 14px;
+    font-weight: 600;
+
+    margin-bottom: 14px;
+}
+
+.alerts-filters {
+    display: grid;
+
+    grid-template-columns:
+        2fr 1fr 1fr auto;
+
+    gap: 10px;
+    align-items: center;
+}
+
+.alerts-filters input,
+.alerts-filters select {
+    width: 100%;
+    box-sizing: border-box;
+
+    padding: 11px 13px;
+
+    background: #0a1321;
+    color: #dce5f3;
+
+    border: 1px solid rgba(255, 255, 255, 0.09);
+    border-radius: 8px;
+
+    outline: none;
+
+    font-size: 12px;
+
+    transition: 0.2s ease;
+}
+
+.alerts-filters input::placeholder {
+    color: #65738a;
+}
+
+.alerts-filters input:focus,
+.alerts-filters select:focus {
+    border-color: rgba(0, 255, 170, 0.45);
+
+    box-shadow:
+        0 0 0 3px rgba(0, 255, 170, 0.05);
+}
+
+.alerts-filters select option {
+    background: #0a1321;
+    color: #ffffff;
+}
+
+
+/* =========================================================
+   CLEAR FILTER
+   ========================================================= */
+
+.clear-filters {
+    padding: 10px 15px;
+
+    border-radius: 8px;
+
+    border: 1px solid rgba(255, 255, 255, 0.09);
+
+    background: rgba(255, 255, 255, 0.04);
+
+    color: #a9b6c9;
+
+    cursor: pointer;
+
+    font-size: 12px;
+
+    transition: 0.2s ease;
+}
+
+.clear-filters:hover {
+    color: #ffffff;
+
+    background: rgba(255, 255, 255, 0.08);
+
+    border-color: rgba(0, 255, 170, 0.20);
+}
+
+
+/* =========================================================
+   ALERT TABLE PANEL
+   ========================================================= */
+
+.alerts-table-panel {
+    background: rgba(13, 22, 38, 0.92);
+
+    border: 1px solid rgba(255, 255, 255, 0.07);
+
+    border-radius: 14px;
+
+    overflow: hidden;
+
+    box-shadow:
+        0 12px 35px rgba(0, 0, 0, 0.18);
+}
+
+.alerts-table-header {
+    display: flex;
+
+    justify-content: space-between;
+    align-items: center;
+
+    padding: 20px 22px;
+
+    border-bottom:
+        1px solid rgba(255, 255, 255, 0.07);
+}
+
+.alerts-table-header h2 {
+    color: #ffffff;
+    font-size: 16px;
+}
+
+.alerts-count {
+    color: #728097;
+    font-size: 11px;
+}
+
+
+/* =========================================================
+   ALERT TABLE
+   ========================================================= */
+
+.alerts-table-wrapper {
+    width: 100%;
+    overflow-x: auto;
+}
+
+.alerts-table {
+    width: 100%;
+    min-width: 950px;
+
+    border-collapse: collapse;
+}
+
+.alerts-table thead {
+    background: rgba(255, 255, 255, 0.025);
+}
+
+.alerts-table th {
+    padding: 13px 14px;
+
+    text-align: left;
+
+    color: #75839a;
+
+    font-size: 10px;
+    font-weight: 600;
+
+    text-transform: uppercase;
+    letter-spacing: 0.6px;
+
+    border-bottom:
+        1px solid rgba(255, 255, 255, 0.07);
+}
+
+.alerts-table td {
+    padding: 15px 14px;
+
+    color: #b7c2d4;
+
+    font-size: 12px;
+
+    border-bottom:
+        1px solid rgba(255, 255, 255, 0.045);
+
+    vertical-align: middle;
+}
+
+.alerts-table tbody tr {
+    transition: background 0.2s ease;
+}
+
+.alerts-table tbody tr:hover {
+    background: rgba(255, 90, 90, 0.025);
+}
+
+.alerts-table tbody tr:last-child td {
+    border-bottom: none;
+}
+
+
+/* =========================================================
+   ALERT ID
+   ========================================================= */
+
+.alert-id {
+    color: #64728a;
+
+    font-family: monospace;
+    font-size: 11px;
+}
+
+
+/* =========================================================
+   ALERT TYPE
+   ========================================================= */
+
+.alert-type {
+    color: #ffffff;
+
+    font-weight: 600;
+    font-size: 12px;
+}
+
+
+/* =========================================================
+   ALERT DESCRIPTION
+   ========================================================= */
+
+.alert-description {
+    max-width: 360px;
+
+    color: #8996aa;
+
+    line-height: 1.5;
+}
+
+
+/* =========================================================
+   SOURCE IP
+   ========================================================= */
+
+.alert-ip {
+    color: #8bdcff;
+
+    font-family: monospace;
+    font-size: 12px;
+}
+
+
+/* =========================================================
+   ALERT DATE
+   ========================================================= */
+
+.alert-time {
+    color: #75839a;
+
+    font-family: monospace;
+    font-size: 11px;
+
+    white-space: nowrap;
+}
+
+
+/* =========================================================
+   ALERT STATUS
+   ========================================================= */
+
+.alert-status {
+    display: inline-flex;
+
+    align-items: center;
+    justify-content: center;
+
+    min-width: 62px;
+
+    padding: 5px 9px;
+
+    border-radius: 20px;
+
+    font-size: 10px;
+    font-weight: 600;
+}
+
+.alert-status.open {
+    color: #ffc857;
+
+    background: rgba(255, 200, 87, 0.08);
+
+    border:
+        1px solid rgba(255, 200, 87, 0.15);
+}
+
+.alert-status.resolved {
+    color: #00ffaa;
+
+    background: rgba(0, 255, 170, 0.08);
+
+    border:
+        1px solid rgba(0, 255, 170, 0.15);
+}
+
+.alert-status.closed {
+    color: #8d9bb1;
+
+    background: rgba(141, 155, 177, 0.08);
+
+    border:
+        1px solid rgba(141, 155, 177, 0.15);
+}
+
+
+/* =========================================================
+   ALERT SEVERITY
+   ========================================================= */
+
+.alert-severity {
+    display: inline-flex;
+
+    align-items: center;
+    justify-content: center;
+
+    min-width: 65px;
+
+    padding: 5px 9px;
+
+    border-radius: 20px;
+
+    font-size: 10px;
+    font-weight: 600;
+}
+
+.alert-severity.critical {
+    color: #ff5252;
+
+    background: rgba(255, 82, 82, 0.10);
+
+    border:
+        1px solid rgba(255, 82, 82, 0.18);
+}
+
+.alert-severity.high {
+    color: #ff8a65;
+
+    background: rgba(255, 138, 101, 0.10);
+
+    border:
+        1px solid rgba(255, 138, 101, 0.18);
+}
+
+.alert-severity.medium {
+    color: #ffc857;
+
+    background: rgba(255, 200, 87, 0.10);
+
+    border:
+        1px solid rgba(255, 200, 87, 0.18);
+}
+
+.alert-severity.low {
+    color: #00ffaa;
+
+    background: rgba(0, 255, 170, 0.08);
+
+    border:
+        1px solid rgba(0, 255, 170, 0.15);
+}
+
+
+/* =========================================================
+   EMPTY STATE
+   ========================================================= */
+
+.no-alerts {
+    padding: 55px 20px;
+
+    text-align: center;
+
+    color: #65738a;
+
+    font-size: 13px;
+}
+
+.no-alerts-icon {
+    display: block;
+
+    font-size: 38px;
+
+    margin-bottom: 12px;
+
+    opacity: 0.6;
+}
+
+
+/* =========================================================
+   ALERT ACTION BUTTON
+   ========================================================= */
+
+.alert-action {
+    padding: 7px 11px;
+
+    border-radius: 7px;
+
+    background: rgba(255, 255, 255, 0.04);
+
+    border:
+        1px solid rgba(255, 255, 255, 0.08);
+
+    color: #aab6c8;
+
+    cursor: pointer;
+
+    font-size: 10px;
+
+    transition: 0.2s ease;
+}
+
+.alert-action:hover {
+    color: #00ffaa;
+
+    border-color:
+        rgba(0, 255, 170, 0.25);
+
+    background:
+        rgba(0, 255, 170, 0.05);
+}
+
+
+/* =========================================================
+   PAGINATION
+   ========================================================= */
+
+.alerts-pagination {
+    padding: 14px 20px;
+
+    border-top:
+        1px solid rgba(255, 255, 255, 0.05);
+}
+
+.pagination-info {
+    color: #728097;
+    font-size: 11px;
+}
+
+
+/* =========================================================
+   RESPONSIVE - TABLET
+   ========================================================= */
+
+@media (max-width: 1100px) {
+
+    .alerts-summary {
+        grid-template-columns:
+            repeat(2, minmax(0, 1fr));
+    }
+
+    .alerts-filters {
+        grid-template-columns:
+            1fr 1fr;
+    }
+
+    .alerts-filters input {
+        grid-column: span 2;
+    }
+}
+
+
+/* =========================================================
+   RESPONSIVE - MOBILE
+   ========================================================= */
+
+@media (max-width: 768px) {
+
+    .alerts-header {
+        flex-direction: column;
+        align-items: flex-start;
+    }
+
+    .alerts-summary {
+        grid-template-columns: 1fr;
+    }
+
+    .alerts-filters {
+        grid-template-columns: 1fr;
+    }
+
+    .alerts-filters input {
+        grid-column: auto;
+    }
+
+    .alerts-table-header {
+        padding: 16px;
+    }
+}
+
+
+/* =========================================================
+   SMALL MOBILE
+   ========================================================= */
+
+@media (max-width: 480px) {
+
+    .alerts-filter-panel {
+        padding: 15px;
+    }
+
+    .alerts-title h1 {
+        font-size: 23px;
+    }
+}

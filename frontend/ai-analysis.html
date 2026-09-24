@@ -1,0 +1,598 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+    <title>AI Security Analysis | Security Log Analyzer</title>
+
+    <link rel="stylesheet" href="css/index.css">
+    <link rel="stylesheet" href="css/ai-analysis.css">
+</head>
+
+<body>
+
+<div class="soc-layout">
+
+    <!-- =========================
+         SIDEBAR
+    ========================== -->
+
+    <aside class="sidebar">
+
+        <div class="sidebar-brand">
+
+            <div class="brand-shield">
+                🛡
+            </div>
+
+            <div class="brand-text">
+                <strong>SECURE<span>X</span></strong>
+                <small>SECURITY OPERATIONS CENTER</small>
+            </div>
+
+        </div>
+
+
+        <div class="sidebar-status">
+
+            <span class="online-dot"></span>
+
+            <div>
+                <strong>SOC ONLINE</strong>
+                <small>Monitoring active</small>
+            </div>
+
+        </div>
+
+
+        <nav class="main-nav">
+
+            <div class="nav-label">
+                MONITORING
+            </div>
+
+
+            <a href="index.html" class="nav-item">
+
+                <span class="nav-icon">⌂</span>
+
+                <span>Dashboard</span>
+
+                <b>01</b>
+
+            </a>
+
+
+            <a href="logs.html" class="nav-item">
+
+                <span class="nav-icon">▤</span>
+
+                <span>Security Logs</span>
+
+                <b>02</b>
+
+            </a>
+
+
+            <a href="alerts.html" class="nav-item">
+
+                <span class="nav-icon">⚠</span>
+
+                <span>Alerts</span>
+
+                <b>03</b>
+
+            </a>
+
+
+            <div class="nav-label">
+                INTELLIGENCE
+            </div>
+
+
+            <a
+                href="threat-intelligence.html"
+                class="nav-item">
+
+                <span class="nav-icon">◎</span>
+
+                <span>Threat Intelligence</span>
+
+                <b>04</b>
+
+            </a>
+
+
+            <a
+                href="ai-analysis.html"
+                class="nav-item active">
+
+                <span class="nav-icon">✦</span>
+
+                <span>AI Analysis</span>
+
+                <b>05</b>
+
+            </a>
+
+        </nav>
+
+
+        <div class="sidebar-bottom">
+
+            <div class="environment-card">
+
+                <span class="environment-icon">
+                    ◉
+                </span>
+
+                <div>
+                    <strong>
+                        LOCAL ENVIRONMENT
+                    </strong>
+
+                    <small>
+                        Protected
+                    </small>
+                </div>
+
+            </div>
+
+
+            <div class="user-profile">
+
+                <div class="avatar">
+                    A
+                </div>
+
+                <div class="user-info">
+
+                    <strong>
+                        Administrator
+                    </strong>
+
+                    <small>
+                        Security Analyst
+                    </small>
+
+                </div>
+
+                <span class="user-more">
+                    ⋮
+                </span>
+
+            </div>
+
+        </div>
+
+    </aside>
+
+
+    <!-- =========================
+         MAIN CONTENT
+    ========================== -->
+
+    <main class="main-content">
+
+
+        <!-- HEADER -->
+
+        <div class="ai-header">
+
+            <div>
+
+                <div class="breadcrumb">
+                    SECURITY CENTER /
+                    <span>AI ANALYSIS</span>
+                </div>
+
+                <h1>
+                    AI Security Analysis
+                </h1>
+
+                <p>
+                    Intelligent analysis of security logs,
+                    threats and suspicious activity.
+                </p>
+
+            </div>
+
+
+            <button
+                class="ai-refresh-button"
+                type="button"
+                onclick="runAnalysis()">
+
+                🔄 Run Analysis
+
+            </button>
+
+        </div>
+
+
+        <!-- =========================
+             AI ENGINE STATUS
+        ========================== -->
+
+        <section class="ai-status-panel">
+
+            <div class="ai-status-icon">
+                🤖
+            </div>
+
+            <div class="ai-status-content">
+
+                <strong>
+                    AI Analysis Engine
+                </strong>
+
+                <p>
+                    Automated security pattern detection
+                    and risk assessment
+                </p>
+
+            </div>
+
+            <span class="ai-status-active">
+                ● ACTIVE
+            </span>
+
+        </section>
+
+
+        <!-- =========================
+             AI SUMMARY
+        ========================== -->
+
+        <div class="ai-summary">
+
+
+            <div class="ai-summary-card">
+
+                <div class="ai-card-icon">
+                    ⚠️
+                </div>
+
+                <div>
+
+                    <h3>
+                        Risk Level
+                    </h3>
+
+                    <div
+                        class="ai-number risk-low"
+                        id="riskLevel">
+
+                        ...
+
+                    </div>
+
+                    <p>
+                        Current security risk
+                    </p>
+
+                </div>
+
+            </div>
+
+
+            <div class="ai-summary-card">
+
+                <div class="ai-card-icon">
+                    🔍
+                </div>
+
+                <div>
+
+                    <h3>
+                        Suspicious Events
+                    </h3>
+
+                    <div
+                        class="ai-number"
+                        id="suspiciousEvents">
+
+                        ...
+
+                    </div>
+
+                    <p>
+                        Events requiring attention
+                    </p>
+
+                </div>
+
+            </div>
+
+
+            <div class="ai-summary-card">
+
+                <div class="ai-card-icon">
+                    🚨
+                </div>
+
+                <div>
+
+                    <h3>
+                        Detected Alerts
+                    </h3>
+
+                    <div
+                        class="ai-number"
+                        id="detectedAlerts">
+
+                        ...
+
+                    </div>
+
+                    <p>
+                        Security alerts detected
+                    </p>
+
+                </div>
+
+            </div>
+
+
+        </div>
+
+
+        <!-- =========================
+             THREAT ASSESSMENT
+        ========================== -->
+
+        <section class="ai-panel">
+
+            <div class="ai-panel-header">
+
+                <div>
+                    <span class="panel-label">
+                        AI INTELLIGENCE
+                    </span>
+
+                    <h2>
+                        🧠 AI Threat Assessment
+                    </h2>
+                </div>
+
+                <span class="panel-status">
+                    ANALYZED
+                </span>
+
+            </div>
+
+
+            <div
+                class="ai-analysis-text"
+                id="threatAssessment">
+
+                Analyzing security logs...
+
+            </div>
+
+        </section>
+
+
+        <!-- =========================
+             ATTACK PATTERN
+        ========================== -->
+
+        <section class="ai-panel">
+
+            <div class="ai-panel-header">
+
+                <div>
+                    <span class="panel-label">
+                        BEHAVIOR ANALYSIS
+                    </span>
+
+                    <h2>
+                        🎯 Attack Pattern Detection
+                    </h2>
+                </div>
+
+                <span class="panel-status">
+                    ACTIVE
+                </span>
+
+            </div>
+
+
+            <div
+                class="ai-analysis-text"
+                id="attackPattern">
+
+                Detecting suspicious activity patterns...
+
+            </div>
+
+        </section>
+
+
+        <!-- =========================
+             RECOMMENDATIONS
+        ========================== -->
+
+        <section class="ai-panel">
+
+            <div class="ai-panel-header">
+
+                <div>
+                    <span class="panel-label">
+                        SECURITY RESPONSE
+                    </span>
+
+                    <h2>
+                        💡 Security Recommendations
+                    </h2>
+                </div>
+
+            </div>
+
+
+            <div
+                id="recommendations"
+                class="recommendations">
+
+                <div class="recommendation">
+
+                    AI engine is analyzing
+                    the latest security data...
+
+                </div>
+
+            </div>
+
+        </section>
+
+
+        <!-- =========================
+             METHODOLOGY
+        ========================== -->
+
+        <section class="ai-methodology">
+
+            <div class="ai-panel-header">
+
+                <div>
+
+                    <span class="panel-label">
+                        SYSTEM PROCESS
+                    </span>
+
+                    <h2>
+                        ⚙️ Analysis Methodology
+                    </h2>
+
+                </div>
+
+            </div>
+
+
+            <div class="methodology-grid">
+
+
+                <div class="methodology-card">
+
+                    <span class="method-number">
+                        01
+                    </span>
+
+                    <h3>
+                        Log Collection
+                    </h3>
+
+                    <p>
+                        Security events are collected
+                        from the project database.
+                    </p>
+
+                </div>
+
+
+                <div class="methodology-card">
+
+                    <span class="method-number">
+                        02
+                    </span>
+
+                    <h3>
+                        Pattern Detection
+                    </h3>
+
+                    <p>
+                        Failed logins, denied access
+                        and suspicious activity are analyzed.
+                    </p>
+
+                </div>
+
+
+                <div class="methodology-card">
+
+                    <span class="method-number">
+                        03
+                    </span>
+
+                    <h3>
+                        Risk Assessment
+                    </h3>
+
+                    <p>
+                        Security activity is classified
+                        into different risk levels.
+                    </p>
+
+                </div>
+
+
+                <div class="methodology-card">
+
+                    <span class="method-number">
+                        04
+                    </span>
+
+                    <h3>
+                        Recommendations
+                    </h3>
+
+                    <p>
+                        The system generates security
+                        recommendations based on detected activity.
+                    </p>
+
+                </div>
+
+
+            </div>
+
+        </section>
+
+
+        <!-- LAST UPDATED -->
+
+        <div
+            class="ai-last-updated"
+            id="aiLastUpdated">
+
+            Waiting for analysis...
+
+        </div>
+
+
+        <!-- FOOTER -->
+
+        <footer class="dashboard-footer">
+
+            <div>
+                <strong>SECUREX</strong>
+                Security Operations Center
+            </div>
+
+            <div>
+                Flask API
+                <span class="footer-dot"></span>
+                Database Connected
+                <span class="footer-dot"></span>
+                Monitoring Active
+            </div>
+
+            <div>
+                v1.0.0
+            </div>
+
+        </footer>
+
+
+    </main>
+
+</div>
+
+<script src="js/auth.js"></script>
+<script src="js/ai-analysis.js"></script>
+
+</body>
+
+</html>
