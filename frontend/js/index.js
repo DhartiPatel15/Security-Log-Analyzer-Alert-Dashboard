@@ -1,4 +1,4 @@
-const API_BASE = "http://127.0.0.1:5000";
+const API_BASE = "";
 
 let securityChart = null;
 let eventBarChart = null;
@@ -15,8 +15,18 @@ let allAlerts = [];
 async function loadDashboard() {
 
     try {
-
         showDashboardLoading();
+
+        const userData = JSON.parse(
+            sessionStorage.getItem("security_user") || "{}"
+        );
+
+        const username = userData.username;
+
+        if (!username) {
+            window.location.href = "login.html";
+            return;
+        }
 
         const [
             dashboardResponse,
@@ -24,11 +34,17 @@ async function loadDashboard() {
             alertsResponse
         ] = await Promise.all([
 
-            fetch(`${API_BASE}/api/dashboard`),
+            fetch(
+                `${API_BASE}/api/dashboard?username=${encodeURIComponent(username)}`
+            ),
 
-            fetch(`${API_BASE}/api/logs`),
+            fetch(
+                `${API_BASE}/api/logs?username=${encodeURIComponent(username)}`
+            ),
 
-            fetch(`${API_BASE}/api/alerts`)
+            fetch(
+                `${API_BASE}/api/alerts?username=${encodeURIComponent(username)}`
+            )
 
         ]);
 
@@ -1158,4 +1174,28 @@ document.querySelectorAll("#logoutButton").forEach(function (logoutButton) {
 
         window.location.href = "login.html";
     });
+});
+/* ================================
+   MOBILE MENU
+================================ */
+
+document.addEventListener("DOMContentLoaded", function () {
+
+    const mobileMenuBtn = document.getElementById("mobileMenuBtn");
+    const sidebar = document.querySelector(".sidebar");
+
+    if (!mobileMenuBtn || !sidebar) {
+        return;
+    }
+
+    mobileMenuBtn.addEventListener("click", function () {
+
+        if (sidebar.classList.contains("mobile-open")) {
+            sidebar.classList.remove("mobile-open");
+        } else {
+            sidebar.classList.add("mobile-open");
+        }
+
+    });
+
 });

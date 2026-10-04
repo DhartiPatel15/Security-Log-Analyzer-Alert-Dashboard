@@ -3,7 +3,7 @@
    ALERTS JAVASCRIPT
    ========================================================= */
 
-const API_BASE = "http://127.0.0.1:5000";
+const API_BASE = "";
 
 let allAlerts = [];
 
@@ -31,8 +31,16 @@ async function loadAlerts() {
 
     try {
 
+        const userData = JSON.parse(
+            sessionStorage.getItem("security_user") || "{}"
+        );
+
+        const username = userData.username;
+
         const response =
-            await fetch(`${API_BASE}/api/alerts`);
+            await fetch(
+                `${API_BASE}/api/alerts?username=${encodeURIComponent(username)}`
+            );
 
         if (!response.ok) {
             throw new Error("Failed to fetch alerts");
@@ -576,3 +584,49 @@ document.addEventListener(
         loadAlerts();
     }
 );
+/* ================================
+   MOBILE MENU
+================================ */
+
+document.addEventListener("DOMContentLoaded", function () {
+
+    const mobileMenuBtn =
+        document.getElementById("mobileMenuBtn");
+
+    const sidebar =
+        document.querySelector(".sidebar");
+
+    if (!mobileMenuBtn || !sidebar) {
+        return;
+    }
+
+    mobileMenuBtn.addEventListener("click", function () {
+
+        sidebar.classList.toggle("mobile-open");
+
+    });
+
+});
+/* ================================
+   LOGOUT
+================================ */
+
+document.addEventListener("DOMContentLoaded", function () {
+
+    const logoutButton =
+        document.querySelector(".user-more");
+
+    if (!logoutButton) {
+        return;
+    }
+
+    logoutButton.addEventListener("click", function () {
+
+        sessionStorage.removeItem("security_logged_in");
+        sessionStorage.removeItem("security_user");
+
+        window.location.href = "login.html";
+
+    });
+
+});

@@ -58,7 +58,7 @@ document.addEventListener("DOMContentLoaded", function () {
         try {
 
             const response = await fetch(
-                "http://127.0.0.1:5000/api/login",
+                "/api/login",
                 {
                     method: "POST",
 
@@ -93,6 +93,11 @@ document.addEventListener("DOMContentLoaded", function () {
 
                 sessionStorage.setItem(
                     "security_user",
+                    JSON.stringify(data.user)
+                );
+
+                localStorage.setItem(
+                    "security_last_user",
                     JSON.stringify(data.user)
                 );
 

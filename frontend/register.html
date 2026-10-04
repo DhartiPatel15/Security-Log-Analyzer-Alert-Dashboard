@@ -1,0 +1,92 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+    <title>Register | SECUREX</title>
+
+    <link rel="stylesheet" href="css/register.css">
+</head>
+
+<body>
+
+    <div class="register-container">
+
+        <div class="register-card">
+
+            <div class="brand">
+                <h1>SECUREX</h1>
+                <p>Security Log Analyzer & Alert Dashboard</p>
+            </div>
+
+            <h2>Create Account</h2>
+            <p class="subtitle">Register a new security analyst account</p>
+
+            <form id="registerForm">
+
+                <div class="form-group">
+                    <label for="username">Username</label>
+                    <input
+                        type="text"
+                        id="username"
+                        placeholder="Enter username"
+                        required
+                    >
+                </div>
+
+                <div class="form-group">
+                    <label for="password">Password</label>
+                    <input
+                        type="password"
+                        id="password"
+                        placeholder="Enter password"
+                        required
+                    >
+                </div>
+
+                <div class="form-group">
+                    <label for="confirmPassword">Confirm Password</label>
+                    <input
+                        type="password"
+                        id="confirmPassword"
+                        placeholder="Confirm password"
+                        required
+                    >
+                </div>
+
+                <div class="form-group">
+                    <label for="role">Role</label>
+
+                    <select id="role">
+                        <option value="Security Analyst">
+                            Security Analyst
+                        </option>
+
+                        <option value="Viewer">
+                            Viewer
+                        </option>
+                    </select>
+                </div>
+
+                <button type="submit" id="registerButton">
+                    Create Account
+                </button>
+
+                <p id="message"></p>
+
+            </form>
+
+            <div class="login-link">
+                Already have an account?
+                <a href="login.html">Login</a>
+            </div>
+
+        </div>
+
+    </div>
+
+    <script src="js/register.js"></script>
+
+</body>
+</html>

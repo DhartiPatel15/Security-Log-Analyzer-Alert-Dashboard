@@ -3,7 +3,7 @@
    AI ANALYSIS JAVASCRIPT
    ========================================================= */
 
-const API_BASE = "http://127.0.0.1:5000";
+const API_BASE = "";
 
 let aiLogs = [];
 let aiAlerts = [];
@@ -19,11 +19,26 @@ async function runAnalysis() {
 
         showLoadingState();
 
+        const userData = JSON.parse(
+            sessionStorage.getItem("security_user") || "{}"
+        );
+
+        const username = userData.username;
+
+        if (!username) {
+            window.location.href = "login.html";
+            return;
+        }
+
         const logsResponse =
-            await fetch(`${API_BASE}/api/logs`);
+            await fetch(
+                `${API_BASE}/api/logs?username=${encodeURIComponent(username)}`
+            );
 
         const alertsResponse =
-            await fetch(`${API_BASE}/api/alerts`);
+            await fetch(
+                `${API_BASE}/api/alerts?username=${encodeURIComponent(username)}`
+            );
 
 
         if (!logsResponse.ok ||
@@ -695,3 +710,49 @@ document.addEventListener(
         runAnalysis();
     }
 );
+/* ================================
+   MOBILE MENU
+================================ */
+
+document.addEventListener("DOMContentLoaded", function () {
+
+    const mobileMenuBtn =
+        document.getElementById("mobileMenuBtn");
+
+    const sidebar =
+        document.querySelector(".sidebar");
+
+    if (!mobileMenuBtn || !sidebar) {
+        return;
+    }
+
+    mobileMenuBtn.addEventListener("click", function () {
+
+        sidebar.classList.toggle("mobile-open");
+
+    });
+
+});
+/* ================================
+   LOGOUT
+================================ */
+
+document.addEventListener("DOMContentLoaded", function () {
+
+    const logoutButton =
+        document.querySelector(".user-more");
+
+    if (!logoutButton) {
+        return;
+    }
+
+    logoutButton.addEventListener("click", function () {
+
+        sessionStorage.removeItem("security_logged_in");
+        sessionStorage.removeItem("security_user");
+
+        window.location.href = "login.html";
+
+    });
+
+});

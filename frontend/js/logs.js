@@ -3,7 +3,7 @@
    SECURITY LOGS JAVASCRIPT
    ========================================================= */
 
-const API_BASE = "http://127.0.0.1:5000";
+const API_BASE = "";
 
 let allLogs = [];
 
@@ -31,8 +31,20 @@ async function loadLogs() {
 
     try {
 
-        const response =
-            await fetch(`${API_BASE}/api/logs`);
+        const userData = JSON.parse(
+            sessionStorage.getItem("security_user") || "{}"
+        );
+
+        const username = userData.username;
+
+        if (!username) {
+            window.location.href = "login.html";
+            return;
+        }
+
+        const response = await fetch(
+            `${API_BASE}/api/logs?username=${encodeURIComponent(username)}`
+        );
 
         if (!response.ok) {
             throw new Error("Failed to fetch logs");
@@ -575,3 +587,53 @@ document.addEventListener(
         loadLogs();
     }
 );
+/* ================================
+   MOBILE MENU
+================================ */
+
+document.addEventListener("DOMContentLoaded", function () {
+
+    const mobileMenuBtn =
+        document.getElementById("mobileMenuBtn");
+
+    const sidebar =
+        document.querySelector(".sidebar");
+
+    if (!mobileMenuBtn || !sidebar) {
+        return;
+    }
+
+    mobileMenuBtn.addEventListener("click", function () {
+
+        if (sidebar.classList.contains("mobile-open")) {
+            sidebar.classList.remove("mobile-open");
+        } else {
+            sidebar.classList.add("mobile-open");
+        }
+
+    });
+
+});
+/* ================================
+   LOGOUT
+================================ */
+
+document.addEventListener("DOMContentLoaded", function () {
+
+    const logoutButton =
+        document.querySelector(".user-more");
+
+    if (!logoutButton) {
+        return;
+    }
+
+    logoutButton.addEventListener("click", function () {
+
+        sessionStorage.removeItem("security_logged_in");
+        sessionStorage.removeItem("security_user");
+
+        window.location.href = "login.html";
+
+    });
+
+});
