@@ -31,15 +31,9 @@ async function loadAlerts() {
 
     try {
 
-        const userData = JSON.parse(
-            sessionStorage.getItem("security_user") || "{}"
-        );
-
-        const username = userData.username;
-
         const response =
             await fetch(
-                `${API_BASE}/api/alerts?username=${encodeURIComponent(username)}`
+                `${API_BASE}/api/alerts`
             );
 
         if (!response.ok) {
