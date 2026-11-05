@@ -2,7 +2,7 @@
 
 A Flask + MySQL web application for reviewing security events, monitoring authentication activity, and highlighting repeated failed-login patterns.
 
-> **Project status:** Local-development project. The repository includes a Flask backend, HTML/CSS/JavaScript frontend, MySQL configuration, and a Gunicorn start command. It is **not yet ready for public production deployment**. Before exposing it to the internet, server-side authentication/authorization must replace the current browser-only login flag and username-based API access.
+> **Project status:** Security hardening has been added: private APIs use signed Flask sessions and derive data ownership from the authenticated session. Public deployment is still pending a hosted database, rate limiting, CSRF review, and end-to-end testing.
 
 ## Features in the current codebase
 
@@ -131,29 +131,32 @@ web: gunicorn --chdir backend app:app
 
 The backend also includes a `requirements.txt` and `.env.example`. A hosted deployment still requires a reachable hosted MySQL-compatible database and correctly configured environment variables. XAMPP running on a personal laptop is not a hosted database for Render.
 
-## Important security work before public deployment
+## Security controls added
 
-The current frontend stores a login indicator and user details in browser storage. The data APIs also accept a username from the request rather than deriving the identity from a server-validated session. **These are not secure server-side access controls.** CORS is currently permissive, and some error responses expose exception details.
+- Flask signed-cookie sessions are issued only after successful password verification.
+- Session cookies are HTTP-only and use SameSite=Lax; Render is configured to enable the Secure cookie flag.
+- Dashboard, logs, alerts, and database diagnostics require an authenticated session.
+- Private data APIs derive the username from the server session, not a client-supplied username.
+- Logout clears the server session.
+- Public registration always assigns the standard Security Analyst role.
+- CORS has been removed because the frontend and API are served from the same Flask origin.
+- API error responses return generic messages; diagnostic details remain in server logs.
 
-Before public deployment:
-1. Implement server-side session authentication (or another verified token mechanism).
-2. Require authentication on every private API and derive the username from the authenticated identity, never a query parameter.
-3. Add a real logout endpoint and server-side session invalidation.
-4. Restrict CORS to the exact deployed origin, or remove cross-origin access when frontend and API are same-origin.
-5. Return generic error messages to clients and keep detailed exceptions only in server logs.
-6. Add CSRF protection for cookie-authenticated state-changing requests, login rate limiting, secure cookie settings, and HTTPS.
-7. Configure a managed database, least-privilege database user, backups, and production environment secrets.
-8. Test registration, login, logout, authorization, database failures, and all dashboard APIs before launch.
+These changes improve the security baseline, but do not make the project production-ready by themselves. CSRF tokens/origin validation, login rate limiting, monitoring, backups, and full security testing are still required before handling real data.
 
-## Current deployment status
+## Deployment status
 
-- [x] GitHub repository structure documented
-- [x] Python dependency manifest added
-- [x] Gunicorn Procfile added
-- [x] Environment-variable example added
-- [ ] Server-side authentication and authorization hardening
-- [ ] Hosted MySQL database configuration
-- [ ] End-to-end testing on the hosted service
+- [x] GitHub documentation and deployment configuration
+- [x] Signed server-side session authentication
+- [x] Protected private APIs and session-based data ownership
+- [x] Server logout endpoint
+- [x] Safer public registration role handling
+- [x] HTTP-only / SameSite session cookie settings
+- [x] CORS removed for same-origin hosting
+- [ ] Hosted MySQL-compatible database and schema migration
+- [ ] Render environment variables and deployment
+- [ ] Login rate limiting and CSRF protection review
+- [ ] End-to-end tests on the hosted service
 - [ ] Public live demo
 
 ## Repository
