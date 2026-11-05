@@ -629,6 +629,23 @@ def login():
 
         db = get_db_connection()
         cursor = db.cursor(dictionary=True)
+        ip_address = request.remote_addr or "127.0.0.1"
+
+        # Throttle repeated failures for the same account and source IP.
+        cursor.execute("""
+            SELECT COUNT(*) AS recent_failures
+            FROM security_logs
+            WHERE username = %s
+              AND ip_address = %s
+              AND event_type = 'LOGIN_FAILED'
+              AND log_time >= NOW() - INTERVAL 15 MINUTE
+        """, (username, ip_address))
+        recent_failures = cursor.fetchone()["recent_failures"]
+        if recent_failures >= 10:
+            return jsonify({
+                "status": "error",
+                "message": "Too many login attempts. Try again in 15 minutes."
+            }), 429
 
         # Automatically detect brute-force activity
         ensure_bruteforce_alerts(
@@ -678,7 +695,7 @@ def login():
                 )
             """, (
                 username,
-                "127.0.0.1",
+                ip_address,
                 "LOGIN_SUCCESS",
                 "Success",
                 "User logged in successfully",
@@ -701,9 +718,6 @@ def login():
                     "role": user["role"]
                 }
             })
-
-        # Get client IP address
-        ip_address = request.remote_addr or "127.0.0.1"
 
         # Create security log for failed login
         cursor.execute("""
