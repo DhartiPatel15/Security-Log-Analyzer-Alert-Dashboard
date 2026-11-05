@@ -96,12 +96,6 @@ document.addEventListener("DOMContentLoaded", function () {
                     JSON.stringify(data.user)
                 );
 
-                localStorage.setItem(
-                    "security_last_user",
-                    JSON.stringify(data.user)
-                );
-
-
                 loginButton.querySelector(
                     ".button-text"
                 ).textContent = "Access Granted";
