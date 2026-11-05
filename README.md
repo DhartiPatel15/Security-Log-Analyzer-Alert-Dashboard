@@ -121,6 +121,8 @@ Open the local address printed by Flask in your browser (normally `http://127.0.
 
 ## Deployment configuration
 
+A root `Procfile` and `render.yaml` deployment blueprint are included. The blueprint sets the build/start commands and asks you to enter database credentials as private environment variables in Render. It does **not** create a hosted database for you.
+
 A root `Procfile` is included:
 
 ```text
