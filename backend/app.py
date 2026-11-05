@@ -1,5 +1,7 @@
-from flask import Flask, jsonify, send_from_directory, request
+from flask import Flask, jsonify, send_from_directory, request, session
 from werkzeug.security import check_password_hash, generate_password_hash
+from functools import wraps
+import os
 from flask_cors import CORS
 from database import get_db_connection
 from pathlib import Path
@@ -18,15 +20,16 @@ FRONTEND_DIR = BASE_DIR.parent / "frontend"
 # =========================================================
 
 app = Flask(__name__)
+app.secret_key = os.environ.get("SECRET_KEY", "development-only-change-me")
+app.config.update(SESSION_COOKIE_HTTPONLY=True, SESSION_COOKIE_SAMESITE="Lax", SESSION_COOKIE_SECURE=os.environ.get("COOKIE_SECURE", "false").lower() == "true")
 
-CORS(
-    app,
-    resources={
-        r"/api/*": {
-            "origins": "*"
-        }
-    }
-)
+def login_required(view):
+    @wraps(view)
+    def wrapped(*args, **kwargs):
+        if not session.get("user_id") or not session.get("username"):
+            return jsonify({"status": "error", "message": "Authentication required."}), 401
+        return view(*args, **kwargs)
+    return wrapped
 
 
 # =========================================================
@@ -184,13 +187,14 @@ def create_access_denied():
 # =========================================================
 
 @app.route("/api/logs")
+@login_required
 def get_logs():
 
     db = None
     cursor = None
 
     try:
-        username = request.args.get("username")
+        username = session.get("username")
 
         if not username:
             return jsonify({
@@ -357,6 +361,7 @@ def ensure_bruteforce_alerts(db, cursor, username=None):
 # =========================================================
 
 @app.route("/api/alerts")
+@login_required
 def get_alerts():
 
     db = None
@@ -428,6 +433,7 @@ def get_alerts():
 # =========================================================
 
 @app.route("/api/dashboard")
+@login_required
 def dashboard():
 
     db = None
@@ -554,10 +560,8 @@ def register():
 
         username = data.get("username", "").strip()
         password = data.get("password", "")
-        role = data.get(
-            "role",
-            "Security Analyst"
-        ).strip()
+        # Public self-registration cannot assign privileged roles.
+        role = "Security Analyst"
 
         # Check required fields
         if not username or not password:
@@ -760,6 +764,11 @@ def login():
             ))
 
             db.commit()
+            session.clear()
+            session["user_id"] = user["id"]
+            session["username"] = user["username"]
+            session["role"] = user["role"]
+            session.permanent = True
 
             return jsonify({
                 "status": "success",
@@ -994,6 +1003,22 @@ def access_denied():
         if db:
             db.close()
 # =========================================================
+# SESSION STATUS AND LOGOUT
+# =========================================================
+
+@app.route("/api/me")
+@login_required
+def current_user():
+    return jsonify({"status": "success", "user": {"id": session["user_id"], "username": session["username"], "role": session.get("role", "Security Analyst")}})
+
+@app.route("/api/logout", methods=["POST"])
+def logout():
+    session.clear()
+    response = jsonify({"status": "success", "message": "Logged out."})
+    response.headers["Cache-Control"] = "no-store"
+    return response
+
+# =========================================================
 # START SERVER
 # =========================================================
 
@@ -1009,27 +1034,27 @@ if __name__ == "__main__":
     print()
 
     print("Frontend:")
-    print("http://10.157.219.237:5000/")
+    print("http://127.0.0.1:5000/")
     print()
 
     print("Health Check:")
-    print("http://10.157.219.237:5000/api/health")
+    print("http://127.0.0.1:5000/api/health")
     print()
 
     print("Database Test:")
-    print("http://10.157.219.237:5000/api/db-test")
+    print("http://127.0.0.1:5000/api/db-test")
     print()
 
     print("Dashboard API:")
-    print("http://10.157.219.237:5000/api/dashboard")
+    print("http://127.0.0.1:5000/api/dashboard")
     print()
 
     print("Registration API:")
-    print("POST http://10.157.219.237:5000/api/register")
+    print("POST http://127.0.0.1:5000/api/register")
     print()
 
     print("Login API:")
-    print("POST http://10.157.219.237:5000/api/login")
+    print("POST http://127.0.0.1:5000/api/login")
     print()
 
     print("=" * 55)
