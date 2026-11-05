@@ -1,10 +1,7 @@
-from flask import Flask, jsonify, send_from_directory, request, session, session
+from flask import Flask, jsonify, send_from_directory, request, session
 from werkzeug.security import check_password_hash, generate_password_hash
 from functools import wraps
 import os
-from functools import wraps
-import os
-from flask_cors import CORS
 from database import get_db_connection
 from pathlib import Path
 
@@ -22,7 +19,7 @@ FRONTEND_DIR = BASE_DIR.parent / "frontend"
 # =========================================================
 
 app = Flask(__name__)
-app.secret_key = os.environ.get("SECRET_KEY", "development-only-change-me")
+app.secret_key = os.environ.get("SECRET_KEY") or os.urandom(32)
 app.config.update(SESSION_COOKIE_HTTPONLY=True, SESSION_COOKIE_SAMESITE="Lax", SESSION_COOKIE_SECURE=os.environ.get("COOKIE_SECURE", "false").lower() == "true")
 
 def login_required(view):
@@ -60,7 +57,7 @@ def health():
     return jsonify({
         "status": "success",
         "message": "Security Log Analyzer & Alert Dashboard backend is running",
-        "server": "127.0.0.1:5000"
+        "service": "flask-api"
     })
 
 
@@ -443,13 +440,7 @@ def dashboard():
     cursor = None
 
     try:
-        username = request.args.get("username")
-
-        if not username:
-            return jsonify({
-                "status": "error",
-                "message": "Username is required."
-            }), 400
+        username = session["username"]
 
         db = get_db_connection()
         cursor = db.cursor(dictionary=True)
@@ -1006,22 +997,6 @@ def access_denied():
 
         if db:
             db.close()
-# =========================================================
-# SESSION STATUS AND LOGOUT
-# =========================================================
-
-@app.route("/api/me")
-@login_required
-def current_user():
-    return jsonify({"status": "success", "user": {"id": session["user_id"], "username": session["username"], "role": session.get("role", "Security Analyst")}})
-
-@app.route("/api/logout", methods=["POST"])
-def logout():
-    session.clear()
-    response = jsonify({"status": "success", "message": "Logged out."})
-    response.headers["Cache-Control"] = "no-store"
-    return response
-
 # =========================================================
 # SESSION STATUS AND LOGOUT
 # =========================================================
