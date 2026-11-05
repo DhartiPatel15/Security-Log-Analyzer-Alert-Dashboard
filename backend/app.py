@@ -4,6 +4,7 @@ from functools import wraps
 import os
 from database import get_db_connection
 from pathlib import Path
+from urllib.parse import urlparse
 
 
 # =========================================================
@@ -29,6 +30,13 @@ def login_required(view):
             return jsonify({"status": "error", "message": "Authentication required."}), 401
         return view(*args, **kwargs)
     return wrapped
+
+@app.before_request
+def enforce_same_origin_for_writes():
+    if request.method in {"POST", "PUT", "PATCH", "DELETE"}:
+        origin = request.headers.get("Origin")
+        if origin and urlparse(origin).netloc != request.host:
+            return jsonify({"status": "error", "message": "Cross-origin request rejected."}), 403
 
 
 # =========================================================
@@ -102,88 +110,6 @@ def db_test():
         if db:
             db.close()
 
-# =========================================================
-# CREATE ACCESS DENIED SECURITY LOG
-# =========================================================
-
-@app.route("/api/access-denied", methods=["POST"])
-@login_required
-def create_access_denied():
-
-    db = None
-    cursor = None
-
-    try:
-        data = request.get_json(silent=True) or {}
-
-        username = session.get("username")
-
-        if not username:
-            return jsonify({
-                "status": "error",
-                "message": "Username is required."
-            }), 400
-
-        ip_address = request.remote_addr or "127.0.0.1"
-
-        db = get_db_connection()
-        cursor = db.cursor(dictionary=True)
-
-        cursor.execute("""
-            INSERT INTO security_logs
-            (
-                log_time,
-                username,
-                ip_address,
-                event_type,
-                status,
-                message,
-                severity
-            )
-            VALUES (
-                NOW(),
-                %s,
-                %s,
-                %s,
-                %s,
-                %s,
-                %s
-            )
-        """, (
-            username,
-            ip_address,
-            "ACCESS_DENIED",
-            "Denied",
-            "Unauthorized access attempt detected",
-            "Medium"
-        ))
-
-        db.commit()
-
-        return jsonify({
-            "status": "success",
-            "message": "Access denied event logged successfully."
-        }), 201
-
-    except Exception as e:
-
-        print(
-            "ACCESS DENIED API ERROR:",
-            repr(e)
-        )
-
-        return jsonify({
-            "status": "error",
-            "message": The request could not be completed. Check server logs.
-        }), 500
-
-    finally:
-
-        if cursor:
-            cursor.close()
-
-        if db:
-            db.close()
 # GET SECURITY LOGS
 # =========================================================
 
@@ -912,92 +838,6 @@ def login():
         if db:
             db.close()
 
-# =========================================================
-# ACCESS DENIED LOGGING
-# =========================================================
-
-@app.route("/api/access-denied", methods=["POST"])
-@login_required
-def access_denied():
-
-    db = None
-    cursor = None
-
-    try:
-        data = request.get_json(silent=True) or {}
-
-        username = data.get("username", "").strip()
-        message = data.get(
-            "message",
-            "Unauthorized access attempt"
-        )
-
-        if not username:
-            return jsonify({
-                "status": "error",
-                "message": "Username is required."
-            }), 400
-
-        ip_address = request.remote_addr or "127.0.0.1"
-
-        db = get_db_connection()
-        cursor = db.cursor()
-
-        cursor.execute("""
-            INSERT INTO security_logs
-            (
-                log_time,
-                username,
-                ip_address,
-                event_type,
-                status,
-                message,
-                severity
-            )
-            VALUES (
-                NOW(),
-                %s,
-                %s,
-                %s,
-                %s,
-                %s,
-                %s
-            )
-        """, (
-            username,
-            ip_address,
-            "ACCESS_DENIED",
-            "Denied",
-            message,
-            "Medium"
-        ))
-
-        db.commit()
-
-        return jsonify({
-            "status": "success",
-            "message": "Access denied event logged successfully"
-        }), 201
-
-    except Exception as e:
-
-        if db:
-            db.rollback()
-
-        print("ACCESS DENIED API ERROR:", repr(e))
-
-        return jsonify({
-            "status": "error",
-            "message": The request could not be completed. Check server logs.
-        }), 500
-
-    finally:
-
-        if cursor:
-            cursor.close()
-
-        if db:
-            db.close()
 # =========================================================
 # SESSION STATUS AND LOGOUT
 # =========================================================
