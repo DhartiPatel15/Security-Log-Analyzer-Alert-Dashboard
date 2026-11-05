@@ -31,19 +31,8 @@ async function loadLogs() {
 
     try {
 
-        const userData = JSON.parse(
-            sessionStorage.getItem("security_user") || "{}"
-        );
-
-        const username = userData.username;
-
-        if (!username) {
-            window.location.href = "login.html";
-            return;
-        }
-
         const response = await fetch(
-            `${API_BASE}/api/logs?username=${encodeURIComponent(username)}`
+            `${API_BASE}/api/logs`
         );
 
         if (!response.ok) {
