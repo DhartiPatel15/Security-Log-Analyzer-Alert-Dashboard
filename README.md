@@ -150,6 +150,7 @@ The backend also includes a `requirements.txt` and `.env.example`. A hosted depl
 - Public registration always assigns the standard Security Analyst role.
 - CORS has been removed because the frontend and API are served from the same Flask origin.
 - State-changing requests with an Origin header are checked against the request host.
+- Login is throttled after 10 failed attempts for the same account and source IP within 15 minutes.
 - API error responses return generic messages; diagnostic details remain in server logs.
 
 These changes improve the security baseline, but do not make the project production-ready by themselves. CSRF tokens/origin validation, login rate limiting, monitoring, backups, and full security testing are still required before handling real data.
@@ -164,10 +165,11 @@ These changes improve the security baseline, but do not make the project product
 - [x] HTTP-only / SameSite session cookie settings
 - [x] CORS removed for same-origin hosting
 - [x] Same-origin validation for browser write requests
+- [x] Database-backed login attempt throttling
 - [x] GitHub Actions syntax-check workflow for Python and JavaScript
 - [ ] Hosted MySQL-compatible database and schema migration
 - [ ] Render environment variables and deployment
-- [ ] Login rate limiting and CSRF protection review
+- [ ] Full CSRF token implementation/review
 - [ ] End-to-end tests on the hosted service
 - [ ] Public live demo
 
