@@ -16,9 +16,6 @@ document.addEventListener("DOMContentLoaded", function () {
         const confirmPassword =
             document.getElementById("confirmPassword").value;
 
-        const role =
-            document.getElementById("role").value;
-
         // Check password match
         if (password !== confirmPassword) {
             message.textContent = "Passwords do not match.";
@@ -45,8 +42,7 @@ document.addEventListener("DOMContentLoaded", function () {
                     },
                     body: JSON.stringify({
                         username: username,
-                        password: password,
-                        role: role
+                        password: password
                     })
                 }
             );
