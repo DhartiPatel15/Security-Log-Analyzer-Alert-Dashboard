@@ -17,17 +17,6 @@ async function loadDashboard() {
     try {
         showDashboardLoading();
 
-        const userData = JSON.parse(
-            sessionStorage.getItem("security_user") || "{}"
-        );
-
-        const username = userData.username;
-
-        if (!username) {
-            window.location.href = "login.html";
-            return;
-        }
-
         const [
             dashboardResponse,
             logsResponse,
@@ -35,15 +24,15 @@ async function loadDashboard() {
         ] = await Promise.all([
 
             fetch(
-                `${API_BASE}/api/dashboard?username=${encodeURIComponent(username)}`
+                `${API_BASE}/api/dashboard`
             ),
 
             fetch(
-                `${API_BASE}/api/logs?username=${encodeURIComponent(username)}`
+                `${API_BASE}/api/logs`
             ),
 
             fetch(
-                `${API_BASE}/api/alerts?username=${encodeURIComponent(username)}`
+                `${API_BASE}/api/alerts`
             )
 
         ]);
