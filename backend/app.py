@@ -1,5 +1,7 @@
-from flask import Flask, jsonify, send_from_directory, request, session
+from flask import Flask, jsonify, send_from_directory, request, session, session
 from werkzeug.security import check_password_hash, generate_password_hash
+from functools import wraps
+import os
 from functools import wraps
 import os
 from flask_cors import CORS
@@ -91,7 +93,7 @@ def db_test():
 
         return jsonify({
             "status": "error",
-            "message": str(e)
+            "message": The request could not be completed. Check server logs.
         }), 500
 
     finally:
@@ -107,6 +109,7 @@ def db_test():
 # =========================================================
 
 @app.route("/api/access-denied", methods=["POST"])
+@login_required
 def create_access_denied():
 
     db = None
@@ -115,7 +118,7 @@ def create_access_denied():
     try:
         data = request.get_json(silent=True) or {}
 
-        username = data.get("username", "").strip()
+        username = session.get("username")
 
         if not username:
             return jsonify({
@@ -173,7 +176,7 @@ def create_access_denied():
 
         return jsonify({
             "status": "error",
-            "message": str(e)
+            "message": The request could not be completed. Check server logs.
         }), 500
 
     finally:
@@ -242,7 +245,7 @@ def get_logs():
 
         return jsonify({
             "status": "error",
-            "message": str(e)
+            "message": The request could not be completed. Check server logs.
         }), 500
 
     finally:
@@ -368,7 +371,7 @@ def get_alerts():
     cursor = None
 
     try:
-        username = request.args.get("username")
+        username = session.get("username")
 
         if not username:
             return jsonify({
@@ -416,7 +419,7 @@ def get_alerts():
 
         return jsonify({
             "status": "error",
-            "message": str(e)
+            "message": The request could not be completed. Check server logs.
         }), 500
 
     finally:
@@ -527,7 +530,7 @@ def dashboard():
 
         return jsonify({
             "status": "error",
-            "message": str(e)
+            "message": The request could not be completed. Check server logs.
         }), 500
 
     finally:
@@ -664,7 +667,7 @@ def register():
 
         return jsonify({
             "status": "error",
-            "message": str(e)
+            "message": The request could not be completed. Check server logs.
         }), 500
 
     finally:
@@ -906,7 +909,7 @@ def login():
 
         return jsonify({
             "status": "error",
-            "message": str(e)
+            "message": The request could not be completed. Check server logs.
         }), 500
 
     finally:
@@ -922,6 +925,7 @@ def login():
 # =========================================================
 
 @app.route("/api/access-denied", methods=["POST"])
+@login_required
 def access_denied():
 
     db = None
@@ -992,7 +996,7 @@ def access_denied():
 
         return jsonify({
             "status": "error",
-            "message": str(e)
+            "message": The request could not be completed. Check server logs.
         }), 500
 
     finally:
@@ -1002,6 +1006,22 @@ def access_denied():
 
         if db:
             db.close()
+# =========================================================
+# SESSION STATUS AND LOGOUT
+# =========================================================
+
+@app.route("/api/me")
+@login_required
+def current_user():
+    return jsonify({"status": "success", "user": {"id": session["user_id"], "username": session["username"], "role": session.get("role", "Security Analyst")}})
+
+@app.route("/api/logout", methods=["POST"])
+def logout():
+    session.clear()
+    response = jsonify({"status": "success", "message": "Logged out."})
+    response.headers["Cache-Control"] = "no-store"
+    return response
+
 # =========================================================
 # SESSION STATUS AND LOGOUT
 # =========================================================
