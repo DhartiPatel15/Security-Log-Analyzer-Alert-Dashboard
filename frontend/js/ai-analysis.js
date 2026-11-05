@@ -19,25 +19,14 @@ async function runAnalysis() {
 
         showLoadingState();
 
-        const userData = JSON.parse(
-            sessionStorage.getItem("security_user") || "{}"
-        );
-
-        const username = userData.username;
-
-        if (!username) {
-            window.location.href = "login.html";
-            return;
-        }
-
         const logsResponse =
             await fetch(
-                `${API_BASE}/api/logs?username=${encodeURIComponent(username)}`
+                `${API_BASE}/api/logs`
             );
 
         const alertsResponse =
             await fetch(
-                `${API_BASE}/api/alerts?username=${encodeURIComponent(username)}`
+                `${API_BASE}/api/alerts`
             );
 
 
