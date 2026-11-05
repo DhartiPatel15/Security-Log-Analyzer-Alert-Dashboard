@@ -35,6 +35,7 @@ Some pages and integrations may require configuration or further implementation.
 Security-Log-Analyzer-Alert-Dashboard/
 ├── backend/
 │   ├── app.py
+│   ├── schema.sql
 │   ├── database.py
 │   ├── log_analyzer.py
 │   ├── mysql_test.py
@@ -93,7 +94,13 @@ Start **MySQL** from XAMPP, open phpMyAdmin, and create a database named:
 CREATE DATABASE security_dashboard;
 ```
 
-The application expects the database tables `users`, `security_logs`, and `alerts`. Use the project's database schema/setup SQL if supplied with your local copy. This repository README does not invent a schema migration.
+Run the included schema script against the `security_dashboard` database to create the required `users`, `security_logs`, and `alerts` tables:
+
+```bash
+mysql -u root -p security_dashboard < backend/schema.sql
+```
+
+For XAMPP with an empty root password, omit `-p` and run the command from Command Prompt using the MySQL executable, or import `backend/schema.sql` through phpMyAdmin.
 
 ### 5. Configure environment variables
 
@@ -105,6 +112,8 @@ DB_PORT=3306
 DB_USER=root
 DB_PASSWORD=
 DB_NAME=security_dashboard
+SECRET_KEY=replace_with_a_long_random_secret
+COOKIE_SECURE=false
 ```
 
 Use the actual MySQL username and password configured on your computer. Never commit `.env` or publish real database credentials.
