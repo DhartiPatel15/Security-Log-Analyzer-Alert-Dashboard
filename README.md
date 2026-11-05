@@ -2,7 +2,7 @@
 
 A Flask + MySQL web application for reviewing security events, monitoring authentication activity, and highlighting repeated failed-login patterns.
 
-> **Project status:** Security hardening has been added: private APIs use signed Flask sessions and derive data ownership from the authenticated session. Public deployment is still pending a hosted database, rate limiting, CSRF review, and end-to-end testing.
+> **Project status:** Security hardening has been added: private APIs use signed Flask sessions and derive data ownership from the authenticated session. Public deployment is still pending a hosted database, full CSRF-token protection, and end-to-end testing.
 
 ## Features in the current codebase
 
@@ -153,7 +153,7 @@ The backend also includes a `requirements.txt` and `.env.example`. A hosted depl
 - Login is throttled after 10 failed attempts for the same account and source IP within 15 minutes.
 - API error responses return generic messages; diagnostic details remain in server logs.
 
-These changes improve the security baseline, but do not make the project production-ready by themselves. CSRF tokens/origin validation, login rate limiting, monitoring, backups, and full security testing are still required before handling real data.
+These changes improve the security baseline, but do not make the project production-ready by themselves. CSRF tokens, monitoring, backups, and full security testing are still required before handling real data.
 
 ## Deployment status
 
