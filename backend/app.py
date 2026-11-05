@@ -66,6 +66,7 @@ def health():
 # =========================================================
 
 @app.route("/api/db-test")
+@login_required
 def db_test():
 
     db = None
