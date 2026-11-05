@@ -1,22 +1,19 @@
-import mysql.connector
+from database import get_db_connection
 
-print("Starting direct MySQL test...")
 
-try:
-    db = mysql.connector.connect(
-        host="127.0.0.1",
-        port=3306,
-        user="root",
-        password="12345",
-        connection_timeout=5,
-        use_pure=True
-    )
-
-    print("MYSQL CONNECTION SUCCESSFUL!")
-
-    db.close()
-    print("MYSQL CONNECTION CLOSED!")
-
-except Exception as e:
-    print("MYSQL CONNECTION FAILED!")
-    print("ERROR:", repr(e))
+if __name__ == "__main__":
+    connection = None
+    try:
+        connection = get_db_connection()
+        cursor = connection.cursor()
+        cursor.execute("SELECT DATABASE()")
+        row = cursor.fetchone()
+        print("Database connection successful.")
+        print("Database:", row[0] if row else "unknown")
+        cursor.close()
+    except Exception as exc:
+        print("Database connection failed:", type(exc).__name__)
+        raise
+    finally:
+        if connection is not None:
+            connection.close()
