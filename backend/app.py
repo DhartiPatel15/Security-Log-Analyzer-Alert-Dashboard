@@ -99,7 +99,7 @@ def db_test():
 
         return jsonify({
             "status": "error",
-            "message": The request could not be completed. Check server logs.
+            "message": "The request could not be completed. Check server logs."
         }), 500
 
     finally:
@@ -169,7 +169,7 @@ def get_logs():
 
         return jsonify({
             "status": "error",
-            "message": The request could not be completed. Check server logs.
+            "message": "The request could not be completed. Check server logs."
         }), 500
 
     finally:
@@ -343,7 +343,7 @@ def get_alerts():
 
         return jsonify({
             "status": "error",
-            "message": The request could not be completed. Check server logs.
+            "message": "The request could not be completed. Check server logs."
         }), 500
 
     finally:
@@ -448,7 +448,7 @@ def dashboard():
 
         return jsonify({
             "status": "error",
-            "message": The request could not be completed. Check server logs.
+            "message": "The request could not be completed. Check server logs."
         }), 500
 
     finally:
@@ -585,7 +585,7 @@ def register():
 
         return jsonify({
             "status": "error",
-            "message": The request could not be completed. Check server logs.
+            "message": "The request could not be completed. Check server logs."
         }), 500
 
     finally:
@@ -827,7 +827,7 @@ def login():
 
         return jsonify({
             "status": "error",
-            "message": The request could not be completed. Check server logs.
+            "message": "The request could not be completed. Check server logs."
         }), 500
 
     finally:
